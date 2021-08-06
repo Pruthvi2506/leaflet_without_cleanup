@@ -19,3 +19,4 @@ SURE-UI Development team (I_EXT_SURE_PORTAL@internal.nsn.com)
 
 This project is Nokia Proprietory and shall be used only by Nokia products. It is required to get SURE PLM approval before using this NPM package. 
 
+# leaflet_without_cleanup
