@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>SURE UI Component</title>
+<link href="../styles/SUREUIComponents.css?fdb0198f0f34eafd8b05" rel="stylesheet"></head>
+
+<body>
+    <div id="addProfilesView"></div>
+    <span id="infoDialog"></span>
+    <span id="progressIndicatorCircularID"></span>
+    <script type="text/javascript">   
+        function unMount(){
+            
+            
+            var AddProfiles = SUREUI.components.AddProfiles;
+
+            ReactDOM.unmountComponentAtNode(document.getElementById("addProfilesView"))
+        }
+        window.onload = function name(params) {
+            
+            
+            var AddProfiles = SUREUI.components.AddProfiles;
+
+            var dataSource = {
+                method: "GET",
+                url: "https://135.250.139.137:28443/oss-uam/sure/accessRole",
+                pagelimit:1000,
+                headers: {
+                    Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',
+                    tenantId: 'T0',
+                    ugId: 'Admin_UserGroup',
+                    appId: 'SURE_APP',
+                    Accept: 'application/json',
+                    TransformationEnabled: true,
+                    'Content-Type': 'application/json'
+                }
+            }
+          //   var propsCode = sureCache.get('translatedCachedData');
+            var propsCode = {
+                                "SELECT_LANG_FOR_TRANSLTN": "Language:",
+                                "USER": "User",
+                                "EQUIPMENT": "Equipment",
+                                "SERVICE": "Service",
+                                "NETWORK": "Network",
+                                "PATH": "Path",
+                                "CUSTOMER": "Customer",
+                                "FCP": "FCP",
+                                "ENDPOINT": "Endpoint",
+                                "LOCATION": "Location",
+                                "TENANT": "Tenants",
+                                "USERGROUP": "User Groups",
+                                "USERS": "Users",
+                                "PROFILES": "Profiles",
+                                "GRAPH": "Graph",
+                                "ADD": "ADD",
+                                "AUTO_REFRESH": "Auto Refresh",
+                                "INVENTORY": "Inventory",
+                                "TOPOLOGY": "Topology",
+                                "CREATION_DATE": "Creation Date",
+                                "ACTION": "Action",
+                                "COPYRIGHT": "Copyright",
+                                "VERSION": "Version",
+                                "STATE": "State",
+                                "COLUMN_PREFERENCES": "Column Preferences",
+                                "ADMIN_STATE": "Admin State",
+                                "MAP": "Map",
+                                "VIEW_DETAILS": "View Details",
+                                "CREATE": "Create",
+                                "GENERAL_INFORMATION": "General Information",
+                                "FEATURES": "Features",
+                                "UPDATE": "Update",
+                                "NETWORK_UPDATED_SUCCESSFULLY": "Network Updated Successfully",
+                                "NETWORK_UPDATION_FAILED": "Network Updation failed",
+                                "SUBNETWORK_CREATED_SUCCESSFULLY": "SubNetwork created Successfully",
+                                "SUBNETWORK_CREATION_FAILED": "SubNetwork creation failed",
+                                "NETWORK_CREATED_SUCCESSFULLY": "Network Created Successfully",
+                                "NETWORK_CREATION_FAILED": "Network creation failed",
+                                "SEARCH": "Search",
+                                "SEARCH_MODE": "Search Mode",
+                                "SAVE_SEARCH": "Save Search",
+                                "SAVE_SEARCH_AS": "Save Search As",
+                                "HELP": "Help",
+                                "ABOUT_SURE": "About SURE",
+                                "LEAVE_BLANK": "Leave blank for auto-generated",
+                                "SELECT": "Select",
+                                "SELECTED": "Selected",
+                                "TYPE": "Type",
+                                "SUB_TYPE": "Sub Type",
+                                "VIEW_PROFILE": "View profile",
+                                "SIGN_OUT": "Sign Out",
+                                "LAUNCH_PAD": "Launch Pad",
+                                "HISTORY": "HISTORY",
+                                "VIEW": "View",
+                                "DEFAULT": "Default",
+                                "MORE_INFO": "More Info",
+                                "FAVOURITE": "Favourite",
+                                "CLOSE": "Close",
+                                "CAPACITY": "Capacity",
+                                "PHYSICAL_PORT": "Physical Port",
+                                "SUB_PATH": "Sub Path",
+                                "NAME": "Name",
+                                "DESELECT_ALL": "Deselect All",
+                                "CANCEL": "Cancel",
+                                "PARENT": "Parent",
+                                "NUMBER_OF_INSTANCES": "Number of instances",
+                                "STARTING_AT": "Starting at",
+                                "NOT_VALID_NUMBER": "Not a valid number",
+                                "VALUE_IS_TOO_SHORT": "Value is too short",
+                                "MINVALUE": "MinValue",
+                                "MAXVALUE": "MaxValue",
+                                "SHOULD_BE": "Should be",
+                                "SAVE": "Save",
+                                "BACK": "Back",
+                                "NEXT": "Next",
+                                "SHOW_NAVIGATION": "Show navigation",
+                                "EXPAND_LAYERS": "Expand Layers",
+                                "COLLAPSE_LAYERS": "Collapse Layers",
+                                "ZOOM_IN": "Zoom In",
+                                "ZOOM_OUT": "Zoom Out",
+                                "EXPAND_CLUSTER": "Expand Cluster",
+                                "INFORMATION": "Information",
+                                "Loc_COORDS": "Location coordinates for",
+                                "UNKNOWN": "are not known",
+                                "SELECTROW": "Select a Row",
+                                "NO_COLLAPSE": "No more layers to collapse",
+                                "NO_EXPAND": "No more layers to expand",
+                                "NAV_GEO": "Navigate to GeoMap",
+                                "NAV_TOPOMAP": "Navigate to TopologyMap",
+                                "CustomHook:EQP": "CustomHook:EQP",
+                                "TOPOLOGY_MAP": "Topology Map",
+                                "USER_EDIT_HEADING": "Edit User",
+                                "USER_ADD_HEADING": "Add User",
+                                "CONFIRM_DELETE_HEADER": "Confirm Delete",
+                                "CONFIRM_DELETE_MESSAGE": "Are you sure you want to delete",
+                                "ADD_PROFILE_FAILED": "Profile creation failed",
+                                "PROFILE_CREATED_SUCCESSFULLY": "Successfully Created",
+                                "UPLOAD_PROFILE" : "No File Uploaded to create Profile",
+                                "DELETED": "has been deleted"
+                         
+                            };
+            var props = {data:[],dataSource: dataSource,propsCode: propsCode,unMount:unMount}
+            var addProfilesComponent = React.createElement(AddProfiles, props);
+            ReactDOM.render(addProfilesComponent, document.getElementById("addProfilesView"));            
+        }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="../js/SUREUIComponents.js?fdb0198f0f34eafd8b05"></script></body>
+
+</html>

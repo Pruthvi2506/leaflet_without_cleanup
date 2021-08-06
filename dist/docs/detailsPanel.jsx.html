@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: detailsPanel.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: detailsPanel.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  
+ * Component : detailsPanel.js
+ *
+ * @version 1.0
+ * @author Gowtham.S
+ * @ignore
+ */
+
+/**
+* @class DetailsPanel
+* @memberof SUREUI.components
+* 
+*
+* */
+
+import React, { Component } from 'react';
+import PerfectScrollbar from "perfect-scrollbar";
+import "perfect-scrollbar/css/perfect-scrollbar.css";
+import "../../styles/detailsPanel.css"
+
+
+class DetailsPanel extends Component {
+
+    renderIframe(obj, index) {
+        return (
+            &lt;div className="iframeContainer" key={index}>
+                &lt;div className="panelLabel">{obj.label}&lt;/div>
+                &lt;iframe ref={"iframeContent" + index}
+                    onLoad={(event) => {
+                        var ifarmeObj = {
+                            type: "ACCESS_CUSTOM_HOOK",
+                            payload: {
+                                data: obj.data
+                            }
+                        }
+                        event.target.contentWindow.postMessage(ifarmeObj, "*");
+                    }}
+                    src={obj.URL}>&lt;/iframe>
+            &lt;/div>
+        )
+    }
+
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    renderString(obj, index) {
+        //label formating Regex /([A-Z]*[a-z]*)/g
+        //this.capitalizeFirstLetter(label)
+        let label = obj.label.match(/.*/g).join(" ").trim()
+        if (label === "URL" || label === "CustomHookURL") {
+            let tenantID = getQueryStringValue("tenantId");
+            let linkValue = (label === "CustomHookURL") ? `${obj.value}?tenantId=${tenantID}` : obj.value;
+            return (
+                &lt;div className="propContainer" key={index}>
+                    &lt;div className="panelLabel">{label}&lt;/div>
+                    &lt;div className="propValue">
+                        &lt;a href={linkValue} title={linkValue} target="_blank" >{linkValue}&lt;/a>
+                    &lt;/div>
+                &lt;/div>
+            )
+        }
+        return (
+            &lt;div className="propContainer" key={index}>
+                &lt;div className="panelLabel">{label}&lt;/div>
+                &lt;div className="propValue">{obj.value}&lt;/div>
+            &lt;/div>
+        )
+    }
+
+    getContent(data, index) {
+
+        let type = data.type || "";
+        switch (type.toLowerCase()) {
+            case 'iframe':
+                return this.renderIframe(data, index)
+            default:
+                return this.renderString(data, index);
+        }
+    }
+
+    getContents(data) {
+        return (
+            &lt;div id="bodyWrapper">
+                {
+                    data &amp;&amp; data.map((element, index) => {
+                        return this.getContent(element, index);
+                    }, this)
+                }
+            &lt;/div>
+        )
+    }
+
+    componentDidMount() {
+        new PerfectScrollbar("#OverlayPanel .panel-body");
+    }
+
+    render() {
+        const { data } = this.props;
+        if (data &amp;&amp; data.length) {
+            return (
+                &lt;div id="OverlayPanel">
+                    &lt;div className="header">
+                        &lt;div className="title">{this.props.title}&lt;/div>
+                        &lt;div className="close" onClick={this.props.onClose}>&lt;/div>
+                    &lt;/div>
+                    &lt;div className="panel-body">{this.getContents(this.props.data)}&lt;/div>
+                &lt;/div>
+            )
+        }
+        else {
+            return (
+                &lt;div id="OverlayPanel">
+                    &lt;div className="header">
+                        &lt;div className="title">No Information Is Available.&lt;/div>
+                        &lt;div className="close" onClick={this.props.onClose}>&lt;/div>
+                    &lt;/div>
+                    &lt;div className="panel-body">&lt;/div>
+                &lt;/div>
+            )
+        }
+
+    }
+}
+
+export default DetailsPanel
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="SUREUI.components.AddProfiles.html">AddProfiles</a></li><li><a href="SUREUI.components.AssociationView.html">AssociationView</a></li><li><a href="SUREUI.components.CreateUser.html">CreateUser</a></li><li><a href="SUREUI.components.DataGridList.html">DataGridList</a></li><li><a href="SUREUI.components.DetailsPanel.html">DetailsPanel</a></li><li><a href="SUREUI.components.EquipmentMap.html">EquipmentMap</a></li><li><a href="SUREUI.components.EquipmentView.html">EquipmentView</a></li><li><a href="SUREUI.components.GeoMap.html">GeoMap</a></li><li><a href="SUREUI.components.openPopup.html">openPopup</a></li><li><a href="SUREUI.components.Search.html">Search</a></li><li><a href="SUREUI.components.Settings.html">Settings</a></li><li><a href="SUREUI.components.StatusPanel.html">StatusPanel</a></li><li><a href="SUREUI.components.Tenant.html">Tenant</a></li><li><a href="SUREUI.components.TopologyMap.html">TopologyMap</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Apr 07 2021 18:52:28 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

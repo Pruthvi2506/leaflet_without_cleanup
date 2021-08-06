@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>SURE UI Component</title>
+</head>
+
+<body>
+    <div id="geoMapView">
+
+	</div>
+    
+    <span id="infoDialog"></span>
+    <script type="text/javascript">        
+        window.onload = function name(params) {
+            
+            
+            var geoMap = SUREUI.components.GeoMap;
+            
+             var geoDataUnmount = function(x){
+          if(x){
+             ReactDom.unmountComponentAtNode(document.getElementById("geoMap"));
+              ReactDOM.render(dataGridComponent, document.getElementById("dataGrid"));
+          }
+      }
+
+             var markerClickDetail = function(data){
+                 console.log(data);
+             }
+            var openP2PMap = function (level, UUID) {
+                //options for topology
+                //options.level = level
+            }
+            let options = {
+                mapLevel : 0 ,
+                methodGeo: "POST",
+                methodAlarms: "GET",
+                stateAttribute:"AORAlarmState",
+                
+             //   metadataUrl: "http://135.250.193.232:8081/osscm/commons/catalog/",
+             //    metadataUrl: "http://135.250.139.104:8081/osscm/commons/catalog/",
+            //    domain: "http://135.250.193.232:8081",
+                metadataUrl: "http://135.250.139.91:8080/osscm/commons/catalog/",
+                domain: "http://135.250.139.91:8080",
+                topourl: "/oss/sure/topology",
+                Alarmurl : "specifications?q=specName;CONTAINS;state&q=subType;EQUALS;State&q=specType;EQUALS;State;ic&fullTree=true",
+                style: {
+                    height: window.innerHeight,
+                    width: window.innerWidth
+                },
+                openP2PMap: openP2PMap
+            };
+            
+            options.geoDataUnmount = geoDataUnmount;
+            options.markerClickDetail = markerClickDetail;
+             options.AalrmrequestHeaders = {
+                Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',
+                tenantId: 'T0',
+                ugId: 'Admin_UserGroup',
+                appId: 'SURE_APP',
+                Accept: 'application/json',
+                TransformationEnabled: false,
+                'Content-Type': 'application/json',
+                'Response-Type': 'normal'
+            };
+            
+            options.requestHeaders = {
+                Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',
+                tenantId: 'T0',
+                ugId: 'Admin_UserGroup',
+                appId: 'SURE_APP',
+                Accept: 'application/json',
+                TransformationEnabled: true,
+                'Content-Type': 'application/json',
+                'Response-Type': 'flat'
+            };
+            
+            options.currentEntity = "Path";
+            
+            options.iconBaseUrl = "";
+            options.drawIcons = true;
+            options.iconUrl = "http://localhost/ExternalImages/";
+         options.selectedEntityRow =   {
+                              "CreatedByAppId": "SURE_APP",
+                              "CreationDate": "2017-10-06T15:51:19.559+05:30",
+                              "CreatedByUgId": "GlobalTenant_Admin_UserGroup",
+                              "UpdatedByUgId": "GlobalTenant_Admin_UserGroup",
+                              "SubType": "LSP",
+                              "Category": "SERVICE",
+                              "DiscoveryLevel": "Level4",
+                              "CreatedByTenantId": "GlobalTenant",
+                              "Template Name": "TestPath",
+                              "CAPACITY_Sub_caps": "125 Mbps",
+                              "Name": "TestingPath",
+                              "Template Version": "1.0",
+                              "CreatedByUserId": "admin",
+                              "Type": "P2P Path",
+                              "DiscoveredName": "PathforServiceOnMap",
+                              "UpdatedByTenantId": "GlobalTenant",
+                              "UpdatedByAppId": "SURE_APP",
+                              "SureName": "PathforServiceOnMap",
+                              "DisplayName": "PathforServiceOnMap",
+                            //  "UUID": "182345ae-aa80-11e7-a52e-005056a80946",
+                              //  "UUID": "7ad495d7-a422-4d28-b10c-504bae97f4bf",  //232
+                                "UUID": "Path1-for-P2P Test",    //91
+                          //  "UUID": "21e95ac7-f955-4cc0-ad1b-3e93508c4fe4",
+                                  
+                            };
+             options.Geodata = [ ];
+            options.customHookTraversal=[
+                 {
+                        text: "CH:AOR",
+                        icon: "",
+                        callback: function(e){
+                        console.log("AOR");
+                        },
+                        filter: ["12345","6f2d91bf-cf75-11e7-8468-005056a8590e"] 
+                                    
+                }];
+            options.alarmStatus = [
+                                      {
+                                        "stateType": "AORAlarmState",
+                                        "properties": [
+                                          {
+                                            "state": "WARNING",
+                                            "priority": "4",
+                                            "color": "#42A5F5"
+                                          },
+                                          {
+                                            "state": "CRITICAL",
+                                            "priority": "1",
+                                            "color": "#BE0006"
+                                          },
+                                          {
+                                            "state": "MAJOR",
+                                            "priority": "2",
+                                            "color": "#FF7900"
+                                          },
+                                          {
+                                            "state": "MINOR",
+                                            "color": "#FFCC00",
+                                            "priority": "3"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "stateType": "OperationalState",
+                                        "properties": [
+                                          {
+                                            "state": "FLAPPING",
+                                            "priority": "3",
+                                            "color": "UNKNOWN"
+                                          },
+                                          {
+                                            "state": "DISABLED",
+                                            "priority": "5",
+                                            "color": "UNKNOWN"
+                                          },
+                                          {
+                                            "state": "SUPPRESSED",
+                                            "priority": "4",
+                                            "color": "UNKNOWN"
+                                          },
+                                          {
+                                            "state": "ENABLED",
+                                            "priority": "6",
+                                            "color": "UNKNOWN"
+                                          },
+                                          {
+                                            "state": "UP",
+                                            "priority": "7",
+                                            "color": "#8CC63F"
+                                          },
+                                          {
+                                            "state": "DOWN",
+                                            "priority": "2",
+                                            "color": "#F44336"
+                                          },
+                                          {
+                                            "state": "FAULTY",
+                                            "priority": "1",
+                                            "color": "UNKNOWN"
+                                          }
+                                        ]
+                                      }
+                                    ];
+            
+             options.statusPanelConfig = {
+                    displayLabel: true,
+                    size: "M",                    
+                    style: {
+                        width: "240px",
+                        zIndex: 401,
+                    },
+                    groupToShow: "Badge Status Indication",
+                    status: [{
+                        text: "Badge Status Indication",
+                        value: "None",
+                        items: [
+                            {
+                                text: "None",
+                                label: "None",
+                                values: []
+                            },
+                            {
+                                text: "AlarmState",
+                                label: "Alarms",
+                                values: [{
+                                    text: "Critical",
+                                    badge: "C",
+                                    icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG("#be0006", "C" )),
+                                    color: "#be0006",
+                                    enabled: true
+                                },
+                                {
+                                    text: "Major",
+                                    badge: "M",
+                                    icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG("#ff7900", "M" )),
+                                    color: "#ff7900",
+                                    enabled: true
+                                },
+                                {
+                                    text: "Minor",
+                                    badge: "m",
+                                    icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG("#ffcc00", "m" )),
+                                    color: "#ffcc00",
+                                    enabled: true
+                                },
+                                {
+                                    text: "Warning",
+                                    badge: "w",
+                                    icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG("#42a5f5", "w" )),
+                                    color: "#42a5f5",
+                                    enabled: true
+                                },
+                                    // {
+                                    //     text: "Cleared",
+                                    //     icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG({ value: "settings", color: "#06bfa9", badge: "cl" })),
+                                    //     color: "#06bfa9",
+                                    //     enabled: true
+                                    // }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text: "Marker Status Indication",
+                        value: "None",
+                        items: [
+                            {
+                                text: "None",
+                                label: "None",
+                                values: [],
+                                type: "radioButton"
+                            },
+                            {
+                                text: "OperationalState",
+                                label: "Operational State",
+                                values: [{
+                                    text: "Down",
+                                    icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG("#be0006", "" )),
+                                    color: "#be0006",
+                                    enabled: true
+                                }, {
+                                    text: "Up",
+                                    icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG("#8cc640","")),
+                                    color: "#8cc640",
+                                    enabled: true
+                                }
+                                ]
+                            },
+                            {
+                                text: "AdministrativeState",
+                                label: "Administrative State",
+                                values: []
+                            },
+                        ]
+                    }]
+                }
+       
+
+
+            var geomapComponent = React.createElement(geoMap, options);
+            ReactDOM.render(geomapComponent, document.getElementById("geoMapView"));
+            
+                        function drawSVG(color, badge) {
+                var svg = '<svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="mapviewsettingssvg" viewBox="0 0 6 6" width="6" height="6">\
+                         <circle cx="3" cy="3" r="3" fill="'+ color + '"/><text x="3" y="3" text-anchor="middle" font-family="Arial" style="font-weight: bold; font-size:20%"  fill="#f9fbfd" dy=".3em">' + badge + '</text>\
+                        </svg>';
+                return svg
+            }
+        }
+    </script>
+</body>
+
+</html>

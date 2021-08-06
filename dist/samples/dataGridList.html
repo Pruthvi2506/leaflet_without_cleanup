@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>SURE UI Component</title>
+
+<link href="../styles/SUREUIComponents.css?fdb0198f0f34eafd8b05" rel="stylesheet"></head>
+
+<body>
+    <div id="dataGrid" style="height:662px"></div>
+    <span id='progressIndicatorCircularIDComp'></span>
+    <script type="text/javascript">
+    function unmountData() {
+
+
+            var DataGridList = SUREUI.components.DataGridList;
+            ReactDom.unmountComponentAtNode(document.getElementById("dataGrid"));
+        }
+        window.onload = function name(params) {
+            
+            
+            var DataGridList = SUREUI.components.DataGridList;
+            
+            var passRowDataDetail = function passRowData(selectedRowData) {
+                return (selectedRowData);
+            }
+            var editEntity = function editRow(params) {
+                return (params);
+            }
+            var deleteEntityRow = function deleteRow(params) {
+                return (params);
+            }
+            // to pass the current entity selected from taversal to SURE UI
+            var getTraversalEntity = function traversalEntity(traversalEntity) {
+
+                return (traversalEntity);
+            }
+            var getParentTraversal = function parentTraversal(parentTraversal){
+               // console.log(parentTraversal);
+                return (parentTraversal);
+            }
+            var dataRowCount = function dataCount(count) {
+
+                return (count);
+            }
+           var columnPreferenceState = function columnPreference(columnState)
+           {
+              // return(columnState);
+               console.log('columns');
+               console.log(columnState);
+              
+           };
+            var gridData = {
+                method: "GET",
+                metadataUrl: "https://135.250.139.137:28443/osscm/commons/catalog/",
+                 domain: "https://135.250.139.137:28443/oss/sure/",
+                rowurl: "equipments?criteria=onlyRoot&limit=100&page=1&expand=Capacity,State",
+                selectedEntity: "Equipment",
+//                 columnResponse:[
+
+//  {visibleColumn: "Severity", entityAttribute: "STATE_AlarmState"},
+
+// {visibleColumn: "Type", entityAttribute: "Type"},
+
+// {visibleColumn: "Sub Type", entityAttribute: "SubType"},
+
+//  {visibleColumn: "Last Update Date", entityAttribute: "LastUpdateDate"},
+
+//  {visibleColumn: "Port Name", entityAttribute: "portName"}],
+                
+                // enable for profiles
+                //  metadataUrl: "https://135.250.139.106:28443/osscm/commons/catalog/",
+                //  domain: "https://135.250.139.106:28443/oss-uam/sure/",
+                //  rowurl: "accessRole/",
+                //  selectedEntity: "profiles",
+
+              // enable for tenant
+                // metadataUrl: "https://135.250.139.105:28443/osscm/commons/catalog/",
+                // domain: "https://135.250.139.105:28443/oss-uam/sure/",
+                // rowurl: "tenants",
+                // selectedEntity: "tenants",
+               //enable for groups
+                //  metadataUrl: "https://135.250.139.105:28443/osscm/commons/catalog/",
+                // domain: "https://135.250.139.105:28443/oss-uam/sure/",
+                // rowurl: "userGroups?expand=Tenant,Profile.Item&q=Tenant.UUID;EQUALS;e0e41255-0d95-03bf-a37f-b5b52d162715",
+                // selectedEntity: "usergroups",
+
+                // enable for users
+                // metadataUrl: "http://135.250.139.119:8080/osscm/commons/catalog/",
+                // domain: "https://135.250.139.137:28443/oss/sure/",
+                 //rowurl: "public/tenants/GlobalTenant/users",
+                //  selectedEntity: "users",
+               
+
+                // metadataUrl: "https://135.250.139.106:28443/osscm/commons/catalog/",
+                // domain: "https://135.250.138.107:28443/oss/sure/",
+                // rowurl: "equipments?criteria=onlyRoot&limit=100&page=1&expand=Capacity,State",
+                // selectedEntity: "Equipment",
+                columnurl: "specifications?q=specName;EQUALS;EntityAttribute&q=subType;EQUALS;English",
+                imageIconurl: "",
+                passRowData: passRowDataDetail,
+                editRow: editEntity,
+                deleteRow: deleteEntityRow,
+                traversalEntity: getTraversalEntity,
+                parentTraversal:getParentTraversal,
+                dataCount: dataRowCount,
+                columnPreference:columnPreferenceState,
+    //             traversalClick: {
+    //     "request": {
+    //       "level": 1
+    //     }
+    //     , "response": {
+    //       "responseType": "List"
+    //       , "entity": ["Path"]
+    //       , "selfJoin": "true"
+    //       , "responseFilter": [{
+    //         "for": "Equipment"
+    //         , "filter": ["UUID;NOT EQUAL;68d86be9-2991-11e7-bd5c-005056a8590e" ]
+    //       }
+    //       ]
+    //     }
+    //     , "expand": ["Capacity", "State"]
+    //     , "searchFilter": [{
+    //       "for": "Equipment"
+    //       , "filter": ["UUID;EQUALS;68d86be9-2991-11e7-bd5c-005056a8590e"]
+    //     }
+    //     ]
+    //   }, 
+//      columnResponse:[[{field: "SureName", hide: false, displayName: "Equipment Name"},
+//  {field: "Type", hide: false, displayName: "Type"},
+//  {field: "SubType", hide: false, displayName: "Sub Type"},
+//  {field: "DiscoveredName", hide: false, displayName: "Discovered Name"},
+//  {field: "LastUpdateDate", hide: false, displayName: "Last Update Date"},
+//  {field: "Category", hide: false, displayName: "Category"},
+//  {field: "baseMacAddress", hide: true, displayName: "Base Mac Address"},
+//  {field: "cardProtectionType", hide: true, displayName: "Card Protection Type"},
+//  {field: "chassisType", hide: true, displayName: "Chassis Type"}, {field: "daughterCardSlotId", hide: true, displayName: "Daughter Card Slot Id"},
+// {field: "DiscoveryLevel", hide: true, displayName: "Discovery Level"},
+//  {field: "DisplayName", hide: true, displayName: "Display Name"},
+// {field: "GEOCODE.Latitude", hide: true, displayName: "Latitude"},
+// {field: "GEOCODE.Longitude", hide: true, displayName: "Longitude"},
+//  {field: "ipAddress", hide: true, displayName: "IP Address"},
+//  {field: "isPrimaryLagMember", hide: true, displayName: "Is Primary Lag Member"},
+// {field: "lagMembershipId", hide: true, displayName: "Lag Membership Id"},
+//  {field: "numberOfDaughterCards", hide: true, displayName: "Number of Daughter Cards"},
+//  {field: "NumberOfShelves", hide: true, displayName: "Number of Shelves"},
+//  {field: "NumberOfSlots", hide: true, displayName: "Number of Slots"},
+//  {field: "objectFullName", hide: true, displayName: "Object Full Name"},
+//  {field: "portName", hide: true, displayName: "Port Name"},
+//  {field: "serialNumber", hide: true, displayName: "Serial Number"},
+//  {field: "shelfId", hide: true, displayName: "Shelf Id"},
+//  {field: "siteName", hide: true, displayName: "Site Name"},
+//  {field: "slotId", hide: true, displayName: "Slot Id"},
+//  {field: "systemAddress", hide: true, displayName: "System Address"},
+//  {field: "sysUpTime", hide: true, displayName: "System Up Time"},
+//  {field: "STATE.AdministrativeState", hide: true, displayName: "State"}]],
+                adminUserGroup:"Admin_UserGroup",
+                searchPayload: {},
+                //searchPayload:{"response":{"responseType":"List","entity":["tenants"]},"expand":["Capacity","State"],"searchFilter":[{"for":"tenants","filter":["SureName;CONTAINS;TNov"]}]},
+                stateConfig: [{
+                    stateType: "AlarmState",
+                    properties: [
+                        { state: "WARNING", priority: "4", color: "#42A5F5", badgeText: "w" },
+                        { state: "CRITICAL", priority: "1", color: "#BE0006", badgeText: "C" },
+                        { state: "MAJOR", priority: "2", color: "#FF7900", badgeText: "M" },
+                        { state: "MINOR", badgeText: "m", priority: "3", color: "#FFCC00" }
+                    ]
+
+                }],
+                rowMenu: ["Edit","Delete"],
+                nameIcon:false,
+                clientSideEnabled : false,
+                searchChips:undefined
+                //,searchChips:[{"text":"Group : NT","value":[{"id":"first-field","value":"Group","dbName":"SureName"},{"id":"condition","value":":"},{"id":"query-170","value":"NT"}],"itemId":"173"},{"text":"Profile = Profile","value":[{"id":"first-field","value":"Profile","dbName":"Profile"},{"id":"condition","value":"="},{"id":"query-178","value":"Profile"}],"itemId":"180"}]  
+
+            };
+            // gridData.customTraversal=[{
+            //         name: "CH:AOR",
+            //         icon: "",
+            //         callbackFunc: function test(){
+            //         console.log("AOR");
+            //         },
+            //         filter: ["12345","6f2d91bf-cf75-11e7-8468-005056a8590e"] 
+            //     },
+            //     {
+            //         name: "CH:VS",
+            //         icon: "",
+            //         callbackFunc: function test(){
+            //         console.log("VS");
+            //         },
+            //         filter: "[12345,'asdfasdf'] "
+            //     },
+            //     {
+            //         name: "Graph",
+            //         icon: "",
+            //         entities: ["Equipment", "Service"],
+            //         callbackFunc: function test(a,b){
+            //         console.log("Graph");
+            //         }
+            //     }
+            // ];
+            gridData.requestHeaders = {
+                Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',
+                tenantId: 'T0',
+                ugId: 'Admin_UserGroup',
+                appId: 'SURE_APP',
+                Accept: 'application/json',
+                TransformationEnabled: true,
+                'Content-Type': 'application/json',
+                'Response-Type': 'flat',
+
+            }
+           
+            var dataGridComponent = React.createElement(DataGridList, gridData);
+            ReactDOM.render(dataGridComponent, document.getElementById("dataGrid"));
+        }
+
+
+      
+    </script>
+
+<script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="../js/SUREUIComponents.js?fdb0198f0f34eafd8b05"></script></body>
+
+</html>

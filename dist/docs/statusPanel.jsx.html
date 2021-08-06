@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: statusPanel.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: statusPanel.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** 
+ *  
+ * Component : statusPanel.js
+ *
+ * @version 1.0
+ * @author Gowtham.S
+ * @ignore
+ */
+
+/**
+* @class StatusPanel
+* @memberof SUREUI.components
+*
+* @property {array}   [data=[ ]]       Predefined data for a component. It should be an array of object.
+* @property {string}  data.id          Unique ID for a marker.
+* @property {string}  data.latitude    Latitude of the location where marker need to display. 
+* @property {string}  data.longitude   Longitude of the location where marker need to display. 
+* @property {string}  data.name        Name of the location where marker need to display. 
+* @property {object}  [data.state]     Status object. It can contain multiple state. Pass in each state as a property of an object. &lt;pre>&lt;code>{"AlarmState" : ["MAJOR", "MINOR", "WARNING", "CRITICAL"]}&lt;/code>&lt;/pre>
+* @property {object}  [data.detail]    Reserved object to store additional information. * 
+* @property {string}  tileServer    Tile Server url for map tiles.
+* @property {object}  [dataSource]      Configuartion for SURE UI data model.
+* @property {string}  [dataSource.method = GET] Http method for SURE REST API.
+* @property {string}  dataSource.url  URL for SURE REST API.
+* @property {object}  [dataSource.headers] Additional headers which usually includes metadata and authorization info.
+* @property {object}  [markers]        Marker icon configuration
+* @property {boolean} [markers.displayLabel = true ] Enable/Disable marker text.
+* @property {object}  [markers.stateToDisplay] Status to display in a marker. It can contain multiple state. Pass in each state as a property of an object. &lt;pre>&lt;code>{"AlarmState" : ["MAJOR", "MINOR", "WARNING", "CRITICAL"]}&lt;/code>&lt;/pre>
+* @property {object}  [style]         To override default styles. It should be an object. Pass in any styles you'd like and they will be applied inline on the input.
+*
+* @example &lt;caption>consuming as a Library&lt;/caption>
+*
+* HTML
+*  &lt;div id="StatusPanel">&lt;/div>
+*
+* JS
+*  
+*  
+*  var StatusPanel = SUREUI.components.StatusPanel;
+*
+*  let dataSource = {
+*  method: "GET",
+*  url: "http://135.250.139.104:8081/oss/sure/locations?limit=100&amp;expand=Equipment.State&amp;q=SELECT;[SureName,Longitude,Latitude,UUID,Equipment]"
+*  headers : {
+*      Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',
+*      tenantId: 'GlobalTenant',
+*      ugId: 'Admin_UserGroup',
+*      appId: 'SURE_APP',
+*      Accept: 'application/json',
+*      TransformationEnabled: true,
+*      'Content-Type': 'application/json',
+*      'Response-Type': 'flat'
+*      }
+*  };
+* 
+*  var props = {
+*      dataSource : dataSource,
+*      tileServer : "http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png"
+*  }
+* 
+*  var statusPanelComponent = React.createElement(statusPanel, prop);
+*  ReactDOM.render(statusPanelComponent, document.getElementById("StatusPanel"));
+* 
+* 
+*/
+
+import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import '../../styles/statusPanel.css'
+import { ToggleSwitch, RadioButton,Slider } from "@nokia-csf-uxr/csfWidgets";
+//Add Provider to the root
+class StatusPanel extends Component {
+
+    constructor(props) {
+        super(props);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.state ={
+            showCluster: true
+        }
+    }
+
+    static get defaultProps() {
+        return {
+            statusUpdateTimeStamp: Date.now()
+        }
+    }
+
+    statusChange(index, groupIndex, newValue) {
+        let statusGroups = JSON.parse(JSON.stringify(this.props.status));
+        let statusGroup = statusGroups[groupIndex];
+        let status = statusGroup.items.filter((item) => item.text == statusGroup.value)
+
+        if (status.length > 0)
+            status[0].values[index].enabled = newValue;
+
+        let statusPanel = Object.assign({}, this.props, { status: statusGroups }, { statusUpdateTimeStamp: Date.now() })
+        this.props.onChange(statusPanel)
+
+
+    }
+
+    statusGroupChange(index, newValue) {
+        let statusGroups = JSON.parse(JSON.stringify(this.props.status));
+        statusGroups[index].value = newValue;
+
+        let statusPanel = Object.assign({}, this.props, { status: statusGroups }, { statusUpdateTimeStamp: Date.now() })
+        this.props.onChange(statusPanel)
+    }
+
+    selectGroup(value) {
+        let statusPanel = Object.assign({}, this.props, { groupToShow: value })
+        this.props.onChange(statusPanel)
+    }
+
+    labelChange(displayLabel) {
+        let statusPanel = Object.assign({}, this.props, { displayLabel: displayLabel })
+        this.props.onChange(statusPanel)
+    }
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        if(value&lt;80){
+        var cluster_msg = document.getElementById("clustermsg"); 
+        document.getElementById("clustermsg").style.display="block";
+        cluster_msg.innerHTML ="Value >= 80"; 
+        document.getElementById("statusId").style.display = "block";
+                    }else{
+        document.getElementById("clustermsg").style.display="none";
+        let statusPanel = Object.assign({}, this.props, {[name]:value })
+        this.props.onChange(statusPanel);
+        document.getElementById("statusId").style.display = "none";
+                     }
+    }
+   
+    sizeChange(size) {
+        let statusPanel = Object.assign({}, this.props, { size: size })
+        this.props.onChange(statusPanel)
+    }
+
+    renderSize(sizeFromProp) {
+        return (
+            ['S', 'M', 'L', 'XL'].map((size, i) =>
+                &lt;div  key={i} className="col-xs-3 colPadding" >
+                    &lt;RadioButton className="col-xs-3 colPadding" id={"rb" + size} onChange={() => { this.sizeChange(size) }} value={size} label={size} checked={sizeFromProp == size}/>
+                &lt;/div>
+            )
+        )
+    }
+
+    renderStatus(statusFromProp, groupIndex) {
+            
+            if(statusFromProp.values &amp;&amp; Array.isArray(statusFromProp.values)){
+                
+        return (
+            &lt;div className="row paddingBottom status">
+                {statusFromProp.values.map((value, index) =>
+                    [&lt;div key={"header" + value.text + index} className="col-xs-6 statusPadding" >
+                        &lt;img className="statusIcon" src={value.icon} />
+                        &lt;span className="statusName">{value.text}&lt;/span>
+                    &lt;/div>,
+                    &lt;div key={value.text + index} className="col-xs-6 statusPadding" >
+                        &lt;ToggleSwitch className="pull-right" labelPosition="left" id={"ts" + value.text} checked={value.enabled} onChange={() => this.statusChange(index, groupIndex, !value.enabled)} />
+                    &lt;/div>]
+                )}
+            &lt;/div>
+        )
+        }
+    }
+
+    renderStatusGroup(statusGroupsFromProp, groupToShow) {
+        
+        return (
+            statusGroupsFromProp.map((statusGroup, groupIndex) =>
+                [&lt;div
+                    key={"header" + statusGroup.text + groupIndex}
+                    className={"row statusGroupHeader " + (groupToShow != statusGroup.text ? "collapsed" : "")}
+                    onClick={() => this.selectGroup(statusGroup.text)}>
+                    &lt;div className="colPadding statusHeader">{statusGroup.text}&lt;/div>
+                &lt;/div>,
+                &lt;div key={groupIndex} className="row statusGroup">
+                    &lt;div className="col-xs-12 colPadding" >{
+                        statusGroup.items.map((status, index) =>
+                            &lt;div key={status.text + index} className={statusGroup.value == status.text &amp;&amp; status.values &amp;&amp; status.values.length > 0 ? "selected" : ""}>
+                                &lt;RadioButton id={"rb" + groupIndex + status.text} checked={statusGroup.value == status.text} onChange={() => this.statusGroupChange(groupIndex, status.text)} label={status.label} />
+                                {this.renderStatus(status, groupIndex)}
+                            &lt;/div>
+                        )
+                    }&lt;/div>
+                &lt;/div>]
+            )
+        )
+    }
+
+    render() {
+        return (
+            &lt;div id="statusId" className={"statusPanel " + (this.props.show ? "show" : "")} style={this.props.style}>
+                &lt;div className="row paddingBottom divider">
+                    &lt;div className="col-xs-6 colPadding" >Labels&lt;/div>
+                    &lt;div className="col-xs-6 colPadding" >
+                        &lt;ToggleSwitch className="pull-right" onChange={() => this.labelChange(!this.props.displayLabel)} id="tslabel" checked={this.props.displayLabel} />
+                    &lt;/div>
+                &lt;/div>
+                &lt;div className="row ">
+                    &lt;div className="colPadding">Marker Size&lt;/div>
+                &lt;/div>
+                &lt;div className="row">
+                    {this.renderSize(this.props.size)}
+                &lt;/div>
+                &lt;div id="clusterDist" style={{ display: this.state.showCluster ? "block" : "none" }} className="row paddingBottom divider">
+                    &lt;div className="col-xs-6 colPadding">Cluster Distance&lt;br />&lt;p id="clustermsg" className="clustermsg-class" >&lt;/p>&lt;/div>
+                    &lt;div className="col-xs-6 colPadding">
+                        &lt;input id="inputCluster" type="Number" placeholder="Enter Cluster Distance" 
+                            name="clusterRadius"
+                            defaultValue={this.props.clusterRadius}
+                            className="form-control"
+                            onBlur={this.handleInputChange} />
+                    &lt;/div>
+                                     
+                &lt;/div>
+                &lt;div id="statusGroupContainer">
+                    {this.renderStatusGroup(this.props.status, this.props.groupToShow)}
+                &lt;/div>
+            &lt;/div>
+        )
+    }
+}
+
+export default StatusPanel
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="SUREUI.components.AddProfiles.html">AddProfiles</a></li><li><a href="SUREUI.components.AssociationView.html">AssociationView</a></li><li><a href="SUREUI.components.CreateUser.html">CreateUser</a></li><li><a href="SUREUI.components.DataGridList.html">DataGridList</a></li><li><a href="SUREUI.components.DetailsPanel.html">DetailsPanel</a></li><li><a href="SUREUI.components.EquipmentMap.html">EquipmentMap</a></li><li><a href="SUREUI.components.EquipmentView.html">EquipmentView</a></li><li><a href="SUREUI.components.GeoMap.html">GeoMap</a></li><li><a href="SUREUI.components.openPopup.html">openPopup</a></li><li><a href="SUREUI.components.Search.html">Search</a></li><li><a href="SUREUI.components.Settings.html">Settings</a></li><li><a href="SUREUI.components.StatusPanel.html">StatusPanel</a></li><li><a href="SUREUI.components.Tenant.html">Tenant</a></li><li><a href="SUREUI.components.TopologyMap.html">TopologyMap</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Apr 07 2021 18:52:28 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

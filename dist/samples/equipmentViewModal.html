@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>SURE UI Component</title>
+
+    <style>
+        
+        #detailsDiv .header {
+        padding: 20px;
+    border-bottom: 1px solid #c3c5d0;
+    margin-bottom: 6px;
+        }
+        
+        #detailsDiv .title {
+        float: none;
+    display: inline-block;
+    margin-right: 26px;
+    line-height: 18px !important;
+    flex: 1;
+    max-width: 80%;
+    word-wrap: break-word;
+        }
+        
+        .detailsDivLabel{
+        color: #9E9E9E;
+    font-family: Nokia Medium,Arial,sans-serif;
+    font-size: 12px;
+    padding-bottom: 5px;
+            
+        }
+        
+        .detailsDivValue{
+        font-family: Nokia Pure,Arial,sans-serif;
+    font-size: 13px;
+        }
+         #helperText {
+            cursor: pointer;
+            color: #205081
+        }
+
+        #detailsPanelWrapper {
+            top: 0px;
+    height: 134px;
+    width: 320px;
+    position: absolute;
+    overflow: hidden;
+    z-index: 5;
+    right: 147px;
+    border: 0px solid;
+        }
+
+        #detailsPanelWrapper.expanded{
+            z-index: 1;
+        }
+
+        #detailsPanel{
+            width: 100%;
+            height: 100%;
+            transition: .3s;
+            /*transform: translateX(320px);*/
+        }
+
+        #detailsPanelWrapper.expanded #detailsPanel {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    </style>
+    
+<link href="../styles/SUREUIComponents.css?fdb0198f0f34eafd8b05" rel="stylesheet"></head>
+
+<body>
+    
+    <div id="equipmentViewWrapper">
+    <!--<div id="launchDiv" onclick="onloadFn({UUID:'accdbe44-75d1-4a9b-979b-c11b98baa27b'});">Launch equipment viewer</div>-->
+    </div>
+    <span id="progressIndicatorCircularID" ></span>
+    
+    <script type="text/javascript">
+        //onloadFn({UUID:'accdbe44-75d1-4a9b-979b-c11b98baa27b'});
+       window.onload = function onloadFn(params) {
+            
+            
+            var EquipmentView = SUREUI.components.EquipmentViewModal;
+            var DetailsPanel = SUREUI.components.DetailsPanel;
+            var passRowDataDetail = function passRowData(selectedRowData) {
+                return (selectedRowData);
+            }
+            var editEntity = function editRow(params) {
+                return (params);
+            }
+            var deleteEntityRow = function deleteRow(params) {
+                return (params);
+            }
+            // to pass the current entity selected from taversal to SURE UI
+            var getTraversalEntity = function traversalEntity(traversalEntity) {
+
+                return (traversalEntity);
+            }
+            var getParentTraversal = function parentTraversal(parentTraversal){
+               // console.log(parentTraversal);
+                return (parentTraversal);
+            }
+            var dataRowCount = function dataCount(count) {
+
+                return (count);
+            }
+           var columnPreferenceState = function columnPreference(columnState)
+           {
+              // return(columnState);
+               console.log('columns');
+               console.log(columnState);
+              
+           }
+            let EVData = {
+                //http://135.250.139.92:8183/osscm/commons/catalog/
+                method: "POST",
+                //metadataUrl: "http://135.250.139.92:8183/osscm/commons/catalog/",
+               // metadataUrl: "http://135.250.139.92:8183/osscm/commons/catalog/",
+                metadataUrl: "https://135.250.139.91:28443/osscm/commons/catalog/",
+                //https://135.250.193.232
+                //metadataUrl: "https://135.250.139.92:28443/osscm/commons/catalog/",
+                //domain: "http://135.250.139.91:8080/oss/sure/",// http://135.250.139.91:8080/oss/sure/topology
+                //domain: "http://135.250.139.92:8080/oss/sure/topology",//https://135.250.139.92:28443
+                //domain: "https://135.250.139.106:28443/oss/sure/topology",  //e4d8c7b5-43c7-418c-b201-0ddc5190c744
+                //138.107
+                domain: "https://135.250.139.91:28443/oss/sure/topology",
+                rowurl: "equipments?criteria=onlyRoot&limit=100&page=1&expand=Capacity,State",
+                selectedEntity: "EquipmentHierarchy",
+                selectedEntityType: "Endpoint",//b646de5f-e960-11e8-80d9-0242c0a80102
+                //selectedEntityType: "Equipment", //8d995584-e338-11e8-99c3-0242c0a8010c
+                //selectedUUID:"6d8d0785-e757-11e8-b926-0242c0a80104",
+                //selectedUUID:"accdbe44-75d1-4a9b-979b-c11b98baa27b",//6d773591-e757-11e8-b926-0242c0a80104
+                //selectedUUID:"6d773591-e757-11e8-b926-0242c0a80104",//3e48fb5e-e8a8-11e8-92e1-0242c0a8010f
+                selectedUUID:"4bb25239-1a34-11e9-89db-0242c0a80103", //2d6e7850-0e69-11e9-a476-0242c0a80106 //b2f583b4-0e69-11e9-a476-0242c0a80106
+                //selectedUUID:"016ad315-1e64-4c24-a31a-8dd0cd8d1ed4",//bc6b3567-d133-11e8-a70a-024287fa8717
+                //selectedUUID:"49a99d4b-d133-11e8-a70a-024287fa8717",//Endpoint which is part of p2p topology
+                //selectedUUID:"e9732423-a5c5-403e-99f7-6b632b083849",//This is an example endpoint
+                //selectedUUID : "7e2bed02-c702-11e8-8e89-0242ac110004",
+                //selectedUUID: "94c7f45c-f8dd-4072-b23d-a0ab2861db4b",
+                //selectedUUID: "e4d8c7b5-43c7-418c-b201-0ddc5190c744",//This is an example of root equipment.
+                selectedSureName:"Selected Equip123",
+               
+                //e4d8c7b5-43c7-418c-b201-0ddc5190c744
+//                 columnResponse:[
+
+//  {visibleColumn: "Severity", entityAttribute: "STATE_AlarmState"},
+
+// {visibleColumn: "Type", entityAttribute: "Type"},
+
+// {visibleColumn: "Sub Type", entityAttribute: "SubType"},
+
+//  {visibleColumn: "Last Update Date", entityAttribute: "LastUpdateDate"},
+
+//  {visibleColumn: "Port Name", entityAttribute: "portName"}],
+
+
+              // enable for tenant
+                // metadataUrl: "http://135.250.139.119:8080/osscm/commons/catalog/",
+                // domain: "http://135.250.139.119:8080/oss-uam/sure/",
+                // rowurl: "tenants",
+                // selectedEntity: "tenants",
+               // enable for groups
+                //  metadataUrl: "http://135.250.139.97:8080/osscm/commons/catalog/",
+                // domain: "http://135.250.139.119:8080/oss-uam/sure/",
+                // rowurl: "realms/SURE/groups",
+                // selectedEntity: "groups",
+
+                // enable for users
+                // metadataUrl: "http://135.250.139.119:8080/osscm/commons/catalog/",
+                // domain: "http://135.250.139.119:8080/oss-uam/sure/",
+                // rowurl: "public/tenants/GlobalTenant/users",
+                //  selectedEntity: "users",
+                // rowurl: "userGroups?expand=Tenant,Profile&q=Tenant.SureName;EQUALS;T0",
+                // selectedEntity: "usergroups",
+                //  metadataUrl: "http://135.250.139.119:8080/osscm/commons/catalog/",
+                //  domain: "http://135.250.139.97:8080/oss-uam/sure/",
+                // rowurl: "equipments?criteria=onlyRoot&limit=100&page=1&expand=Capacity,State",
+                // selectedEntity: "Equipment",
+                columnurl: "specifications?q=specName;EQUALS;EntityAttribute&q=subType;EQUALS;English",
+                imageIconurl: "",
+                passRowData: passRowDataDetail,
+                editRow: editEntity,
+                deleteRow: deleteEntityRow,
+                traversalEntity: getTraversalEntity,
+                parentTraversal:getParentTraversal,
+                dataCount: dataRowCount,
+                columnPreference:columnPreferenceState,
+    //             traversalClick: {
+    //     "request": {
+    //       "level": 1
+    //     }
+    //     , "response": {
+    //       "responseType": "List"
+    //       , "entity": ["Path"]
+    //       , "selfJoin": "true"
+    //       , "responseFilter": [{
+    //         "for": "Equipment"
+    //         , "filter": ["UUID;NOT EQUAL;68d86be9-2991-11e7-bd5c-005056a8590e" ]
+    //       }
+    //       ]
+    //     }
+    //     , "expand": ["Capacity", "State"]
+    //     , "searchFilter": [{
+    //       "for": "Equipment"
+    //       , "filter": ["UUID;EQUALS;68d86be9-2991-11e7-bd5c-005056a8590e"]
+    //     }
+    //     ]
+    //   },
+               // searchPayload:{"response":{"responseType":"List","entity":["Equipment"]},"expand":["Capacity"],"searchFilter":[{"for":"Equipment","filter":["DiscoveredName;CONTAINS;Test"]}]},
+                stateConfig: [{
+                    stateType: "AlarmState",
+                    properties: [
+                        { state: "WARNING", priority: "4", color: "#42A5F5", badgeText: "w" },
+                        { state: "CRITICAL", priority: "1", color: "#BE0006", badgeText: "C" },
+                        { state: "MAJOR", priority: "2", color: "#FF7900", badgeText: "M" },
+                        { state: "MINOR", badgeText: "m", priority: "3", color: "#FFCC00" }
+                    ]
+
+                }],
+                rowMenu: ["Edit","Delete","Add","","Graph"],
+                nameIcon:false,
+                clientSideEnabled : false,
+               searchChips:undefined
+                //,searchChips:[{"text":"Group : NT","value":[{"id":"first-field","value":"Group","dbName":"SureName"},{"id":"condition","value":":"},{"id":"query-170","value":"NT"}],"itemId":"173"},{"text":"Profile = Profile","value":[{"id":"first-field","value":"Profile","dbName":"Profile"},{"id":"condition","value":"="},{"id":"query-178","value":"Profile"}],"itemId":"180"}]  
+
+            };
+           if(params.UUID){
+               console.log(params);
+           EVData.selectedUUID=params.UUID;
+           }
+           if(params.selectedEntityType){
+           EVData.selectedEntityType=params.selectedEntityType;
+           }
+            //b41a7354-6007-11e8-a02e-02427178b0ab
+//                e4d8c7b5-43c7-418c-b201-0ddc5190c744
+            //accdbe44-75d1-4a9b-979b-c11b98baa27b
+                EVData.searchPayload= {"request":{"origin":{"@class":EVData.selectedEntityType,"UUID":EVData.selectedUUID},"inclusion":{"gInclude":[EVData.selectedEntityType]},"gDirection":"BOTH"},"response":{"responseType":"SubTree","entity":["Equipment", "Location"]},"expand":["Equipment.State"]},
+            EVData.customTraversal=[{
+                    name: "CH:AOR",
+                    icon: "",
+                    callbackFunc: function test(){
+                    console.log("AOR");
+                    },
+                    filter: ["12345","6f2d91bf-cf75-11e7-8468-005056a8590e"] 
+                },
+                {
+                    name: "CH:VS",
+                    icon: "",
+                    callbackFunc: function test(){
+                    console.log("VS");
+                    },
+                    filter: "[12345,'asdfasdf'] "
+                },
+                {
+                    name: "Graph",
+                    icon: "",
+                    entities: ["Equipment", "Service"],
+                    callbackFunc: function test(a,b){
+                    console.log("Graph");
+                    }
+                }
+            ];
+            EVData.requestHeaders = {
+                Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',
+                tenantId: 'T0',
+                ugId: 'Admin_UserGroup',
+                appId: 'SURE_APP',
+                Accept: 'application/json',
+                TransformationEnabled: true,
+                'Content-Type': 'application/json',
+                'Response-Type': 'flat',
+
+            }
+            
+            var equipmentViewComponent = React.createElement(EquipmentView, EVData);
+            ReactDOM.render(equipmentViewComponent, document.getElementById("equipmentViewWrapper"));
+            //var equipmentViewComponent = React.createElement(DetailsPanel, detailProps);
+            //ReactDOM.render(equipmentViewComponent, document.getElementById("detailsPanel"));
+            
+        }
+            
+        var data = [
+                {
+                    "label": "Equipment Name",
+                    "value": "SURE UI Equipment Name"
+                },
+                {
+                    "label": "Type",
+                    "value": "SURE UI Type"
+                },
+                {
+                    "label": "Sub Type",
+                    "value": "SURE UI Sub Type"
+                },
+                {
+                    "label": "Discovered Name",
+                    "value": "SURE UI Discovered Name"
+                },
+                {
+                    "label": "Peak Service Bandwidth(Gbs)",
+                    "type": "iframe",
+                    "URL": "http://localhost/angularChart",
+                    "data": { test: true }
+                }
+            ]
+
+          /* var detailProps = {
+                data: data,
+                title: "ABC",
+                onClose: onClose
+            } */
+
+/*function onClose() {
+    console.log("inside onclose..");
+            var detailPanelElement = document.getElementById("detailsPanelWrapper")
+            detailPanelElement.classList.remove("expanded");
+     
+    
+    ReactDom.unmountComponentAtNode(document.getElementById("detailsPanel"));
+        }*/
+        
+
+        
+        function unmountEVData() {
+            
+            
+            var EquipmentView = SUREUI.components.EquipmentView;
+            ReactDom.unmountComponentAtNode(document.getElementById("equipmentView"));
+        }
+    </script>
+
+<script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="../js/SUREUIComponents.js?fdb0198f0f34eafd8b05"></script></body>
+
+</html>

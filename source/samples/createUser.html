@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>SURE UI Component</title>
+</head>
+
+<body>
+    <div id="createUserId"></div>
+    <span id="progressIndicatorCircularID" ></span>
+    <script type="text/javascript">   
+        function unMount() {
+            
+            
+            var CreateUser = SUREUI.components.CreateUser;
+            ReactDOM.unmountComponentAtNode(document.getElementById("createUserId"))
+        }
+        function uamSuccess() {
+        }
+        window.onload = function name(params) {
+            
+            
+            var CreateUser = SUREUI.components.CreateUser;
+            var dataSource = {
+                headerText: 'Add User',
+                baseUrl: "http://135.250.139.91:8080/oss-uam/sure/",
+                headers: {
+                    Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',
+                    tenantId: 'T0',
+                    ugId: 'Admin_UserGroup',
+                    appId: 'SURE_APP',
+                    Accept: 'application/json',
+                    TransformationEnabled: false,
+                    'Content-Type': 'application/json',
+                    'Response-Type': 'flat'
+                },
+                hookMethods: { cancel: unMount, elementId: "crScreens", success: unMount },
+                translationData: undefined,
+                editData: { "Firstname": "Dileep", "Status": "Active", "TenantId": "T0", "Category": "ATTRIBUTE", "Email": "dileep.hariharan@nokia.com", "Username": "dileep", "UgId": "Admin_UserGroup", "Groups": "Admin_UserGroup", "Lastname": "H", "PrimaryLabel": "User","LDAP_ID":"123" }
+            }
+
+            var createUserComponent = React.createElement(CreateUser, dataSource);
+            ReactDOM.render(createUserComponent, document.getElementById("createUserId"));
+
+        }
+    </script>
+</body>
+
+</html>

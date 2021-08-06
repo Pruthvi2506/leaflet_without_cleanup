@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>SURE UI Component</title>
+<link href="../styles/SUREUIComponents.css?fdb0198f0f34eafd8b05" rel="stylesheet"></head>
+
+<body>
+    <div id="equipmentMapView"></div>
+    <div id="treeView"></div>
+    
+
+    <script type="text/javascript">   
+        function unMount(){
+            
+            
+            var EquipmentMap = SUREUI.components.EquipmentMap;
+
+            ReactDOM.unmountComponentAtNode(document.getElementById("equipmentMapView"))
+        }
+        window.onload = function name(params) {
+            
+            
+            var EquipmentMap = SUREUI.components.EquipmentMap;
+
+            var dataSource = {
+                method: "GET",
+                url: "https://135.250.139.104:28443/oss/sure/locations?expand=Equipment,Equipment.State&q=SELECT;[SureName,Longitude,Latitude,UUID,Equipment]",
+                
+                pagelimit:1000,
+             
+
+                headers: {
+                    Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',
+                    tenantId: 'GlobalTenant',
+                    ugId: 'Admin_UserGroup',
+                    appId: 'SURE_APP',
+                    Accept: 'application/json',
+                    TransformationEnabled: true,
+                    'Content-Type': 'application/json',
+                    'Response-Type': 'flat'
+                }
+            }
+
+            var data = [
+                {
+                    "id": "a3878030-299d-11e7-aca2-005056a8590e",
+                    "state": {
+                        "AORAlarmState": ["CRITICAL"]
+                    },
+                    "latitude": "40.712784",
+                    "longitude": "-74.005941",
+                    "name": "NewYork"
+                },
+                {
+                    "id": "3bdaa90a-3f87-11e7-be7d-5254009a6a0a",
+                    "state": {
+                        "OperationalState": ["UP"],
+                        "AORAlarmState": ["MAJOR"]
+                    },
+                    "latitude": "12.971599",
+                    "longitude": "77.594563",
+                    "name": "Location1"
+                },
+                {
+                    "id": "a3878030-299d-11e7-aca2-005056a85912",
+                    "state": {
+                        "OperationalState": ["UP"],
+                        "AORAlarmState": ["MINOR"]
+
+                    },
+                    "name": "Denever",
+                    "latitude": "39.7392",
+                    "longitude": "-104.9903"
+                }, {
+                    "id": "UUID-Hyderabad",
+                    "name": "Chicago",
+                    "state": {
+                        "OperationalState": ["UP"]
+                    },
+                    "latitude": "41.878114",
+                    "longitude": "-87.629798"
+                }, {
+                    "id": "UUID-Chennai",
+                    "latitude": "35.149534",
+                    "state": {
+                        "OperationalState": ["DOWN"],
+                        "AORAlarmState": ["CRITICAL"]
+                    },
+                    "name": "Memphis",
+                    "longitude": "-90.04898"
+
+                }, {
+                    "id": "UUID-Kolkata",
+                    "name": "Huston",
+                    "latitude": "29.760427",
+                    "state": {
+                        "OperationalState": ["UP"]
+                    },
+                    "longitude": "-95.369803"
+                }
+            ]
+
+            function onMarkerClick(data) {
+            }
+
+            function onClusterClick(markers){
+            }
+
+            function toggleFullScreen(e){
+
+            }
+
+            function fetchLocEquip(data) {
+                
+            }
+
+            function getMarkers(data){
+                
+            }
+
+
+
+            var statusPanelConfig = {
+                    displayLabel: true,
+                    size: "M",                    
+                    style: {
+                        width: "240px",
+                        zIndex: 401,
+                    },
+                    groupToShow: "Badge Status Indication",
+                    status: [
+                        {
+                        text: "Badge Status Indication",
+                        value: "None",
+                        items: [
+                            {
+                                text: "None",
+                                label: "None",
+                                values: []
+                            },
+                            {
+                                text: "AORAlarmState",
+                                label: "Alarms",
+                                values: [{
+                                    text: "Critical",
+                                    badge: "C",
+                                    icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG("#be0006", "C" )),
+                                    color: "#be0006",
+                                    enabled: true
+                                },
+                                {
+                                    text: "Major",
+                                    badge: "M",
+                                    icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG("#ff7900", "M" )),
+                                    color: "#ff7900",
+                                    enabled: true
+                                },
+                                {
+                                    text: "Minor",
+                                    badge: "m",
+                                    icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG("#ffcc00", "m" )),
+                                    color: "#ffcc00",
+                                    enabled: true
+                                },
+                                {
+                                    text: "Warning",
+                                    badge: "w",
+                                    icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG("#42a5f5", "w" )),
+                                    color: "#42a5f5",
+                                    enabled: true
+                                },
+                                    // {
+                                    //     text: "Cleared",
+                                    //     icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG({ value: "settings", color: "#06bfa9", badge: "cl" })),
+                                    //     color: "#06bfa9",
+                                    //     enabled: true
+                                    // }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text: "Marker Status Indication",
+                        value: "None",
+                        items: [
+                            {
+                                text: "None",
+                                label: "None",
+                                values: [],
+                                type: "radioButton"
+                            },
+                            {
+                                text: "OperationalState",
+                                label: "Operational State",
+                                values: [{
+                                    text: "Down",
+                                    icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG("#be0006", "" )),
+                                    color: "#be0006",
+                                    enabled: true
+                                }, {
+                                    text: "Up",
+                                    icon: "data:image/svg+xml;charset=utf-8," + encodeURIComponent(drawSVG("#8cc640","")),
+                                    color: "#8cc640",
+                                    enabled: true
+                                }
+                                ]
+                            },
+                            {
+                                text: "AdministrativeState",
+                                label: "Administrative State",
+                                values: []
+                            },
+                        ]
+                    }]
+                }
+
+            
+
+            var props = {
+                dataSource: dataSource,
+                data: data,
+                treeViewData: {
+            
+            topoUrl:'https://135.250.139.91:28443/oss/sure/topology?limit=999999&traverse=BFS',
+            url:'https://135.250.139.91:28443/oss/sure/locations?criteria=onlyRoot',
+            payload: {"request":{"origin":{"@class":"Equipment","UUID":"d9ebbcaa-293a-4921-b4e7-6b21410c17b5"},"inclusion":{"gInclude":["Service","Path","Endpoint","FCP","Equipment","Location"]},"gDirection":"OUTGOING"},"response":{"responseType":"SubTree","columnFilter":[{"for":"Entity","filter":["SureName","UUID","SubType","Latitude","Longitude"]}]},"expand":["State","Equipment.Location"]},
+            editSearchPayload:false,
+            method: 'GET',
+            data:'',
+            unMount: unMount,
+            UUID:"",
+            getMarkers:getMarkers,
+            requestHeaders :{
+                    
+                                "Accept": "application/json",
+                                "tenantId": "T0",
+                                "ugId": "Admin_UserGroup",
+                                "appId": "SURE_APP",
+                                "Authorization": "Basic YWRtaW46YWRtaW5AMTIz",
+                                "Content-Type": "application/json",
+                    
+                    
+                            },
+            style: {
+                        width: "240px",
+                        left: "10px",
+                        top: "10px"
+                    }
+                  },
+              
+    
+                statusPanel : statusPanelConfig,
+                onMarkerClick: onMarkerClick,
+                toggleFullScreen: toggleFullScreen,
+                tileServer: "https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+            }
+            var equipmentmapComponent = React.createElement(EquipmentMap, props);
+            ReactDOM.render(equipmentmapComponent, document.getElementById("equipmentMapView"));
+
+            function drawSVG(color, badge) {
+                var svg = '<svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="mapviewsettingssvg" viewBox="0 0 6 6" width="6" height="6">\
+                         <circle cx="3" cy="3" r="3" fill="'+ color + '"/><text x="3" y="3" text-anchor="middle" font-family="Arial" style="font-weight: bold; font-size:20%"  fill="#f9fbfd" dy=".3em">' + badge + '</text>\
+                        </svg>';
+                return svg
+            }
+        }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="../js/SUREUIComponents.js?fdb0198f0f34eafd8b05"></script></body>
+
+</html>

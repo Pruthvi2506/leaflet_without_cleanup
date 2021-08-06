@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" class="samples">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search with Chips: Pre-populate</title>
+
+<link href="../styles/SUREUIComponents.css?fdb0198f0f34eafd8b05" rel="stylesheet"></head>
+
+<body>
+
+    <div id="searchInput"></div>
+    <div id="searchResults"></div>
+    <span id="clearChips"></span>
+    <span id="populateChips"></span>
+   
+    <script type="text/javascript">
+        window.onload = function name(params) {
+        
+        
+        var SearchwChips = SUREUI.components.Search;
+        var Button = SUREUI.external.csfWidgets.Button;
+
+        function getSearchResult(data){
+            console.log(data);
+        }
+        function onTokenChange(chips){
+            console.log(chips);
+        }
+        
+        var searchDataSource = {
+                method: "GET",
+                catalogAPI: "http://135.250.139.92:8183/osscm/commons/catalog/specifications?q=specName;EQUALS;EntityAttribute&q=subType;EQUALS;English",
+                //searchAPI: "http://135.250.139.92:8181/oss/sure/graphSearch?limit=100&page=1",
+                selectedEntity: "Equipment",
+                iconBaseUrl:"" 
+            };
+            
+            searchDataSource.headers = {
+                Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',
+                tenantId: 'GlobalTenant',
+                ugId: 'Admin_UserGroup',
+                appId: 'SURE_APP',
+                Accept: 'application/json',
+                TransformationEnabled: true,
+                'Content-Type': 'application/json',
+                'Response-Type': 'flat'
+            }
+        
+        var options = {
+            searchProps:{
+                placeHolder: "Search..."
+            },
+            getSearchResult: getSearchResult,
+            onTokenChange: onTokenChange,
+            dataSource : searchDataSource
+            //chips : chipsObj
+        }
+        var search = React.createElement(SearchwChips, options);
+        ReactDOM.render(search, document.getElementById("searchInput"));
+        };
+    </script>
+
+<script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="../js/SUREUIComponents.js?fdb0198f0f34eafd8b05"></script></body>
+
+</html>

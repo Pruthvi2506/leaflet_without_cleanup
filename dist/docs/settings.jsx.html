@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: settings.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: settings.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  
+ * Component : settings.jsx
+ *
+ * @version 1.0
+ * @author Gowtham.S, Sunitha
+ * @ignore
+ */
+
+ /**
+ * @class Settings
+ * @memberof SUREUI.components
+ *
+ * 
+ * @property {boolean}  theme_isEnabled       If true, will display placeholder to upload load and color picker.
+ * @property {string}  theme_color       Company brand color of a tenant in RGBA. e.g. rgba(255,255,255,1)
+ * @property {object}   emailData       Predefined data for emailsettings.
+ * @property {string}  emailData.fromEmail      From eMail.
+ * @property {string}  emailData.displayName    Display name. 
+ * @property {string}  emailData.replyToEmail   Reply eMail. 
+ * @property {string}  emailData.tenantId       Tenant ID.
+ * @property {string}  emailData.ugId       User group ID. 
+ * @property {function}  onSave       callback function which will be called upon save.
+ * @property {function}  onCancel       callback function which will be called upon cancel.
+ * @example &lt;caption>Access component as a Library&lt;/caption>
+ * 
+ *	var Settings = SUREUI.components.Settings;
+ 
+ *	var props = {
+ 
+ *		theme_isEnabled: true,
+ *		theme_color: "rgba(255,255,255,1)",
+ *		emailData: {
+ *			fromEmail: 'abc@nokia.com',
+ *			displayName: 'Test',
+ *			replyToEmail: 'qwe@nokia.com',
+ *			tenantId: 'T0',
+ *			ugId: 'default_UserGroup'
+ *		},
+ *		onSave: function (item) {
+ *			console.log(item);
+ *		},
+ *		onCancel: function (item) {
+ 
+ *		},
+ *		onError: function (item) {
+ 
+ *		}
+ *	}
+ 
+ *	var settingsComponent = React.createElement(Settings, props);
+ *	ReactDOM.render(settingsComponent, document.getElementById("settingsView")); //container height is must to render the component 
+ 
+ */
+
+import React, { Component } from 'react';
+import { ToggleSwitch, FileUploader, Button, Tabs, Tab } from "@nokia-csf-uxr/csfWidgets";
+import Wrapper from "./wrapper.jsx"
+import EmailSettings from "../containers/emailSettings"
+import { SketchPicker, ChromePicker } from 'react-color';
+import "../../styles/settings.css"
+
+class Settings extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            displayColorPicker: false,
+            theme_fileData: [],
+            emailData : props.emailData,
+           
+            
+        };
+        this.stateChanges = new Set();
+        this.handleFieldChange = this.handleFieldChange.bind(this);
+    }
+
+    static get defaultProps() {
+        return {
+            theme_isEnabled: false,
+            theme_color: "rgba(255,255,255,1)",
+            theme_onLogoChange: function (item) {
+
+            },
+        }
+    }
+
+    componentWillMount() {
+        const {emailData} = this.props;
+        const { theme_color, theme_isEnabled, theme_fileData } = this.props;
+        var componentArray = theme_color.replace(/[^\d,]/g, '').split(',') //will clone color obj
+        var rgb = {
+            r: parseInt(componentArray[0]),
+            g: parseInt(componentArray[1]),
+            b: parseInt(componentArray[2]),
+            a: componentArray[3] ? parseInt(componentArray[3]) : 1
+        }
+
+        this.setState({
+            customTheme: theme_isEnabled,
+            theme_fileData: theme_fileData || [],
+            hex: this.rgbToHex(rgb.r, rgb.g, rgb.b),
+            rgb: rgb,
+            tenantFromEmail:emailData.fromEmail,
+            tenantReplyEmail:emailData.replyToEmail,
+            tenantDisplayName:emailData.displayName
+
+        })
+    }
+
+    toggleCustomTheme() {
+        this.stateChanges.add(0);
+        this.setState({
+            customTheme: !this.state.customTheme,
+            theme_fileData : []
+        })
+    }    
+
+    renderThemeSwitch(isEnabled) {
+        return (
+            &lt;div id="themeSwitchContainer">
+                &lt;div id="themeSwitchWrapper">
+                    &lt;div>
+                        &lt;div id="themeSwitchLabel">Custom Theme&lt;/div>
+                        &lt;div id="themeSwitchHelperText">
+                            This option allows you to upload a custom logo and background graphic as well as set the primary color.
+                        &lt;/div>
+                    &lt;/div>
+                    &lt;div id="themeSwitch">
+                        &lt;ToggleSwitch id="ToggleID" onChange={this.toggleCustomTheme.bind(this) } checked={isEnabled} hasLabel={false} />
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        )
+    }
+
+    onFileSelect(e) {
+        this.stateChanges.add(0);
+        this.setState({
+            theme_fileData:e.value.map((item) => {return Object.assign(item, {status: "complete", uploadDate: ""})})
+                            .filter((item, index) =>{return index==e.value.length - 1})
+        })
+    }
+
+    onFileDelete() {
+        this.stateChanges.add(0);
+        this.setState({
+            theme_fileData:[]
+        })
+    }   
+
+    renderFileUploader() {
+        return (
+            &lt;div id="fileUploaderContainer">
+                &lt;div>
+                    &lt;div id="fileUploaderLabel">Logo&lt;/div>
+                    &lt;div id="fileUploaderHelperText">Upload your company logo.&lt;/div>
+                &lt;/div>
+                &lt;div id="fileUploaderInnerContainer">
+                    &lt;div id="fileUploaderWrapper">
+                        &lt;FileUploader 
+                            denyMultipleFileDrop={true} 
+                            allowOnlyOneFileInUploader= {true}
+                            fileTypes = "image/svg+xml,image/png"
+                            data={this.state.theme_fileData} 
+                            dropZoneDateColumnHeader = ""
+                            fileDeleteResponse={this.onFileDelete.bind(this)}
+                            onFileSelect={this.onFileSelect.bind(this)} />
+                        &lt;div id="fileUploaderHelperText1">Files have to be less than 1mb. Supported file formats .PNG, .SVG&lt;/div>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        )
+    }
+
+    calculateColorPickerPosition(element, targetWidth, targetHeight) {
+
+        var settingsElement = document.querySelector("#settings").getBoundingClientRect();
+
+        const elemRect = element.getBoundingClientRect();
+
+        if (elemRect.right + targetWidth &lt; window.innerWidth) //alignRight
+            return { left: elemRect.right + 5 - settingsElement.left, top: elemRect.top - settingsElement.top - targetHeight/2 + elemRect.height/2 }
+
+        else if (elemRect.top - targetHeight > 0) //alingTop
+            return { left: elemRect.left + (element.offsetWidth / 2 - targetWidth / 2), top: (elemRect.top - targetHeight - 5) }
+
+        else if (elemRect.left - targetWidth > 0) //alignLeft
+            return { left: elemRect.left - targetWidth - 5 }
+
+        else if (elemRect.bottom + targetHeight &lt; window.innerHeight)//alingBottom
+            return { left: elemRect.left + (element.offsetWidth / 2 - targetWidth / 2), top: elemRect.bottom + 5 }
+
+        else//alingRight
+            return { left: elemRect.right + 5 }
+
+        //alignLeft is not necessary as flexbox is center aligned, so right and left position both will be true
+    }
+
+    //Color Conversion
+    componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    rgbToHex(r, g, b) {
+        return "#" + ((1 &lt;&lt; 24) + (r &lt;&lt; 16) + (g &lt;&lt; 8) + b).toString(16).slice(1);
+    }
+
+    hexToRgb(hex) {
+        // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+        hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+            return r + r + g + g + b + b;
+        });
+    
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+
+    onChangeColorPicker(obj, event) {
+        this.stateChanges.add(0)
+        this.setState({
+            hex: obj.hex,
+            rgb: obj.rgb
+        })
+    }
+
+    onChangeRGB(obj){
+        this.stateChanges.add(0)
+        this.setState({
+            hex: this.rgbToHex(obj.r, obj.g, obj.b),
+            rgb: obj
+        })
+    }
+
+    onChangeHEX(obj){
+        this.stateChanges.add(0)
+        var rgb = this.hexToRgb(obj)
+        if(rgb){
+            this.setState({rgb : Object.assign(this.state.rgb , rgb)})
+        }
+        else{
+            const {r, g, b} = this.state.rgb;
+            this.setState({hex: this.rgbToHex(r, g, b)})
+        }
+    }
+
+    openColorPicker() {
+
+        const btnColorPicker = this.refs.btnColorPicker; //225x240 color picker dimension
+
+        this.setState({
+            displayColorPicker: true,
+            colorPickerStyle: this.calculateColorPickerPosition(btnColorPicker, 225, 180)
+        })
+    }
+
+    renderColorPicker() {
+        return (
+            &lt;div id="colorPickerContainer">
+                &lt;div>
+                    &lt;div id="colorPickerLabel">Colour&lt;/div>
+                    &lt;div id="colorPickerHelperText">Set your company colour.&lt;/div>
+                    &lt;div id="colorPickerInnerContainer">
+                        &lt;div id="colorPickerTextContainer">
+                            &lt;div id="colorPickerRGB">
+                                &lt;span id="colorPickerRGBLabel">RGB: &lt;/span>
+                                &lt;div>
+                                    &lt;input type="text" value={this.state.rgb.r} 
+                                        onChange={(e) => { 
+                                            this.onChangeRGB(Object.assign(this.state.rgb, {r:Number.isNaN(parseInt(e.target.value)) ? 255 : parseInt(e.target.value)})) 
+                                        }} id="tbRed" className="tbRGB" />
+                                    &lt;input type="text" value={this.state.rgb.g} 
+                                        onChange={(e) => { 
+                                            this.onChangeRGB(Object.assign(this.state.rgb, {g:Number.isNaN(parseInt(e.target.value)) ? 255 : parseInt(e.target.value)})) 
+                                        }} id="tbGreen" className="tbRGB" />
+                                    &lt;input type="text" value={this.state.rgb.b} 
+                                        onChange={(e) => { 
+                                            this.onChangeRGB(Object.assign(this.state.rgb, {b:Number.isNaN(parseInt(e.target.value)) ? 255 : parseInt(e.target.value)})) 
+                                        }} id="tbBlue" className="tbRGB" />
+                                &lt;/div>
+                            &lt;/div>
+                            &lt;div id="colorPickerHEX">
+                                &lt;span id="colorPickerHEXLabel">HEX: &lt;/span>
+                                &lt;input type="text" className="tbHEX" spellCheck="false" onChange={(e)=>{this.setState({hex:e.target.value})}} onBlur={(e) => { this.onChangeHEX(e.target.value) }} value={(this.state.hex || "").toUpperCase()} />
+                            &lt;/div>
+                        &lt;/div>
+                        &lt;button ref="btnColorPicker" style={{ backgroundColor: "rgba(" + this.state.rgb.r + "," + this.state.rgb.g + "," + this.state.rgb.b + "," + this.state.rgb.a  + ")"  }} id="btnColorPicker" onClick={this.openColorPicker.bind(this)}>&lt;/button>
+                        
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        )
+    }
+
+    onSave() {
+        const { onSave } = this.props;
+        const { customTheme, rgb, theme_fileData } = this.state;
+      
+        var saveEmailObj ={
+        emailPayload: {
+            tenantFromEmail: this.state.tenantFromEmail,
+            tenantReplyEmail: this.state.tenantReplyEmail,
+            tenantDisplayName: this.state.tenantDisplayName,
+        },
+        tabIndex: this.getTabIndex.bind(this)
+    };
+        var saveObj = {
+            theme_isEnabled: customTheme,
+            stateChanges: [...this.stateChanges],
+            theme_color: "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + rgb.a + ")",
+            theme_fileData: theme_fileData,
+            emailSettingsPayload:saveEmailObj
+        }
+
+        onSave(saveObj);
+    }
+
+    onCancel(props) {
+        const {onCancel} = this.props;
+        onCancel();
+    }
+    getTabIndex(e)
+    {
+       if(e.value == 1)
+       {
+           return e.value;
+       }
+       else{
+           return null;
+       }
+    } 
+    handleFieldChange(fieldId, value) {
+        if(value){
+            this.stateChanges.add(1);
+        }
+       
+        this.setState({ [fieldId]: value });
+      }
+
+    render() {
+        const { customTheme } = this.state;
+        return (
+            &lt;div id="settings">
+                &lt;Wrapper headerText="Settings" onSave={this.onSave.bind(this)} onCancel={this.onCancel.bind(this)}>
+                    &lt;Tabs className="settingsTabs" alignment="left">
+                        &lt;Tab id="basicTab1" label="CUSTOM THEME" tabIndex={0}>
+                            &lt;div id="card">
+                                {this.renderThemeSwitch(customTheme)}
+                                {customTheme &amp;&amp; this.renderFileUploader()}
+                                {customTheme &amp;&amp; this.renderColorPicker()}
+                            &lt;/div>
+                        &lt;/Tab>
+                        &lt;Tab id="basicTab2" label="EMAIL SETTINGS" tabIndex={1} onClick = {this.getTabIndex.bind(this)}>
+                        &lt;EmailSettings {...this.state.emailData}   onChange={this.handleFieldChange} />
+                        &lt;/Tab>
+                    &lt;/Tabs>
+                    {
+                        this.state.displayColorPicker ?
+                            &lt;div style={this.state.colorPickerStyle} className="colorPickerPopOver">
+                                &lt;div className="colorPickerCover" onClick={() => { this.setState({ displayColorPicker: false }) }} />
+                                &lt;ChromePicker color={this.state.rgb} onChange={this.onChangeColorPicker.bind(this)} />
+                            &lt;/div> : null
+                    }
+                &lt;/Wrapper>
+            &lt;/div>
+        )
+    }
+}
+
+export default Settings</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="SUREUI.components.AddProfiles.html">AddProfiles</a></li><li><a href="SUREUI.components.AssociationView.html">AssociationView</a></li><li><a href="SUREUI.components.CreateUser.html">CreateUser</a></li><li><a href="SUREUI.components.DataGridList.html">DataGridList</a></li><li><a href="SUREUI.components.DetailsPanel.html">DetailsPanel</a></li><li><a href="SUREUI.components.EquipmentMap.html">EquipmentMap</a></li><li><a href="SUREUI.components.EquipmentView.html">EquipmentView</a></li><li><a href="SUREUI.components.GeoMap.html">GeoMap</a></li><li><a href="SUREUI.components.openPopup.html">openPopup</a></li><li><a href="SUREUI.components.Search.html">Search</a></li><li><a href="SUREUI.components.Settings.html">Settings</a></li><li><a href="SUREUI.components.StatusPanel.html">StatusPanel</a></li><li><a href="SUREUI.components.Tenant.html">Tenant</a></li><li><a href="SUREUI.components.TopologyMap.html">TopologyMap</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Apr 07 2021 18:52:28 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

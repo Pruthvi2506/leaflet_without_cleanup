@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: DataGridList</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: DataGridList</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>DataGridList<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    
+    <h4 class="name" id="DataGridList"><span class="type-signature"></span>new DataGridList<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>gridData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Configuartion for SURE UI data model.
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>method</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    GET
+                
+                </td>
+            
+
+            <td class="description last">Http method for SURE REST API.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>columnurl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">URL for SURE REST  to render column Data.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowurl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">URL for SURE REST  to render column Data.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Additional headers which usually includes metadata and authorization info.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>selectedEntity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">selected Entity on which DataGrid refreshes and loads with respect to the selected Entity.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>editIcon</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">path of the edit Icon to be displayed in each row.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>deleteIcon</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">path of the delete icon to be displayed in each row .</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sidemenuIcon</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">path of Traversal Menu Icon to be displayed on each Row.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>unmountData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">function which unmounts/refreshes the data Grid.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowMenu</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">This array contains the list hower actions supported</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>nameIcon</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Enable this for displaying icon along with rows, only applicablt for users,usergroups and tenant</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clientSideEnabled</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Enable this for performing the actions in client side</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>searchChips</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Provide search chips for filtering the data</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="dataGrid.jsx.html">dataGrid.jsx</a>, <a href="dataGrid.jsx.html#line8">line 8</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>{@lang xml}HTML&lt;div id="dataGrid" style="width:100%;height:600px;">&lt;/div>JS   var DataGridList = SUREUI.components.DataGridList;let gridData = {             method: "GET",            metadataUrl: "http://135.250.193.220:8081/osscm/commons/catalog/",            domain: "http://135.250.193.220:8081/oss/sure/",            rowurl: "networks?criteria=onlyRoot&amp;limit=100&amp;page=1&amp;expand=Capacity,State",            selectedEntity: "Network",           columnurl: "specifications?q=specName;EQUALS;EntityAttribute&amp;q=subType;EQUALS;English",           editIcon: "../source/images/dataGrid/ic_edit.svg",           deleteIcon:"../source/images/dataGrid/ic_delete.svg",          sidemenuIcon:"../source/images/dataGrid/ic_more_vertical.svg"                 };gridData.requestHeaders = {          Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',          tenantId: 'GlobalTenant',          ugId: 'Admin_UserGroup',          appId: 'SURE_APP',          Accept: 'application/json',         TransformationEnabled: true,        'Content-Type': 'application/json',       'Response-Type': 'flat'  }var dataGridComponent = React.createElement(DataGridList, gridData);ReactDOM.render(dataGridComponent, document.getElementById("dataGrid")); function unmountData() {                   var DataGridList = SUREUI.components.DataGridList;      ReactDom.unmountComponentAtNode(document.getElementById("dataGrid"));  } </code></pre>
+
+        <p class="code-caption">Access Profile Load in data grid</p>
+    
+    <pre class="prettyprint"><code> HTML&lt;div id="dataGrid" style="width:100%;height:600px;">&lt;/div>JS   var DataGridList = SUREUI.components.DataGridList;let gridData = {             method: "GET",             metadataUrl: "http://135.250.139.92:8080/osscm/commons/catalog/",             domain: "http://135.250.139.92:8080/oss-uam/sure/",             rowurl: "accessRole/",             selectedEntity: "profiles"           columnurl: "specifications?q=specName;EQUALS;EntityAttribute&amp;q=subType;EQUALS;English",           editIcon: "../source/images/dataGrid/ic_edit.svg",           deleteIcon:"../source/images/dataGrid/ic_delete.svg",          sidemenuIcon:"../source/images/dataGrid/ic_more_vertical.svg"                 };gridData.requestHeaders = {          Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',          tenantId: 'GlobalTenant',          ugId: 'Admin_UserGroup',          appId: 'SURE_APP',          Accept: 'application/json',         TransformationEnabled: true,        'Content-Type': 'application/json',       'Response-Type': 'flat'  }var dataGridComponent = React.createElement(DataGridList, gridData);ReactDOM.render(dataGridComponent, document.getElementById("dataGrid")); function unmountData() {                   var DataGridList = SUREUI.components.DataGridList;      ReactDom.unmountComponentAtNode(document.getElementById("dataGrid"));  }</code></pre>
+
+        <p class="code-caption">UserGroup Load in data grid</p>
+    
+    <pre class="prettyprint"><code> HTML&lt;div id="dataGrid" style="width:100%;height:600px;">&lt;/div>JS   var DataGridList = SUREUI.components.DataGridList;let gridData = {              method: "GET",              metadataUrl: "http://135.250.139.97:8080/osscm/commons/catalog/",              domain: "http://135.250.139.119:8080/oss-uam/sure/",              rowurl: "realms/SURE/groups",              selectedEntity: "groups",              columnurl: "specifications?q=specName;EQUALS;EntityAttribute&amp;q=subType;EQUALS;English",              editIcon: "../source/images/dataGrid/ic_edit.svg",              deleteIcon:"../source/images/dataGrid/ic_delete.svg",              sidemenuIcon:"../source/images/dataGrid/ic_more_vertical.svg"                 };gridData.requestHeaders = {          Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',          tenantId: 'GlobalTenant',          ugId: 'Admin_UserGroup',          appId: 'SURE_APP',          Accept: 'application/json',         TransformationEnabled: true,        'Content-Type': 'application/json',       'Response-Type': 'flat'  }var dataGridComponent = React.createElement(DataGridList, gridData);ReactDOM.render(dataGridComponent, document.getElementById("dataGrid")); function unmountData() {                   var DataGridList = SUREUI.components.DataGridList;      ReactDom.unmountComponentAtNode(document.getElementById("dataGrid"));  }</code></pre>
+
+        <p class="code-caption">Tenant Load in data grid</p>
+    
+    <pre class="prettyprint"><code> HTML&lt;div id="dataGrid" style="width:100%;height:600px;">&lt;/div>JS   var DataGridList = SUREUI.components.DataGridList;let gridData = {              
+                metadataUrl: "http://135.250.139.119:8080/osscm/commons/catalog/",
+                domain: "http://135.250.139.119:8080/oss-uam/sure/",
+                rowurl: "tenants",
+                selectedEntity: "tenants",              columnurl: "specifications?q=specName;EQUALS;EntityAttribute&amp;q=subType;EQUALS;English",              editIcon: "../source/images/dataGrid/ic_edit.svg",              deleteIcon:"../source/images/dataGrid/ic_delete.svg",              sidemenuIcon:"../source/images/dataGrid/ic_more_vertical.svg"                 };gridData.requestHeaders = {          Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',          tenantId: 'GlobalTenant',          ugId: 'Admin_UserGroup',          appId: 'SURE_APP',          Accept: 'application/json',         TransformationEnabled: true,        'Content-Type': 'application/json',       'Response-Type': 'flat'  }var dataGridComponent = React.createElement(DataGridList, gridData);ReactDOM.render(dataGridComponent, document.getElementById("dataGrid")); function unmountData() {                   var DataGridList = SUREUI.components.DataGridList;      ReactDom.unmountComponentAtNode(document.getElementById("dataGrid"));  } </code></pre>
+
+        <p class="code-caption">Load Users in data grid</p>
+    
+    <pre class="prettyprint"><code> HTML&lt;div id="dataGrid" style="width:100%;height:600px;">&lt;/div>JS   var DataGridList = SUREUI.components.DataGridList;let gridData = {             method: "GET",             metadataUrl: "http://135.250.139.92:8080/osscm/commons/catalog/",             domain: "http://135.250.139.92:8080/oss-uam/sure/",             rowurl: "tenants/users?tenantId=T0",             selectedEntity: "users"             columnurl: "specifications?q=specName;EQUALS;EntityAttribute&amp;q=subType;EQUALS;English",             rowMenu: ["Edit","Delete","Add","","Graph"],             nameIcon:true,             clientSideEnabled : false,             searchChips:undefined      };gridData.requestHeaders = {          Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',          tenantId: 'GlobalTenant',          ugId: 'Admin_UserGroup',          appId: 'SURE_APP',          Accept: 'application/json',          TransformationEnabled: true,          'Content-Type': 'application/json',          'Response-Type': 'flat'  }var dataGridComponent = React.createElement(DataGridList, gridData);ReactDOM.render(dataGridComponent, document.getElementById("dataGrid"));function unmountData() {                   var DataGridList = SUREUI.components.DataGridList;      ReactDom.unmountComponentAtNode(document.getElementById("dataGrid"));  }</code></pre>
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="SUREUI.components.AddProfiles.html">AddProfiles</a></li><li><a href="SUREUI.components.AssociationView.html">AssociationView</a></li><li><a href="SUREUI.components.CreateUser.html">CreateUser</a></li><li><a href="SUREUI.components.DataGridList.html">DataGridList</a></li><li><a href="SUREUI.components.DetailsPanel.html">DetailsPanel</a></li><li><a href="SUREUI.components.EquipmentMap.html">EquipmentMap</a></li><li><a href="SUREUI.components.EquipmentView.html">EquipmentView</a></li><li><a href="SUREUI.components.GeoMap.html">GeoMap</a></li><li><a href="SUREUI.components.openPopup.html">openPopup</a></li><li><a href="SUREUI.components.Search.html">Search</a></li><li><a href="SUREUI.components.Settings.html">Settings</a></li><li><a href="SUREUI.components.StatusPanel.html">StatusPanel</a></li><li><a href="SUREUI.components.Tenant.html">Tenant</a></li><li><a href="SUREUI.components.TopologyMap.html">TopologyMap</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Apr 07 2021 18:52:29 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

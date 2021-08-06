@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>SURE UI Component</title>
+    <style>
+        #helperText {
+            cursor: pointer;
+            color: #205081
+        }
+
+        #detailsPanelWrapper {
+            height: (100%-100px);
+            width: 320px;
+            position: absolute;
+            overflow: hidden;
+            z-index: -1;
+            right: 0px;
+        }
+
+        #detailsPanelWrapper.expanded{
+            z-index: 1;
+        }
+
+        #detailsPanel{
+            width: 100%;
+            height: 100%;
+            transition: .3s;
+            transform: translateX(320px);
+        }
+
+        #detailsPanelWrapper.expanded #detailsPanel {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="button" value="open Details" onclick="openOverlayPanel()" />
+    </div>
+    <div id="parent">
+        <div id="detailsPanelWrapper"><div id="detailsPanel"></div></div>
+    </div>
+
+    <script type="text/javascript">
+        function openOverlayPanel() {
+            var detailPanelElement = document.getElementById("detailsPanelWrapper")
+            var bodyElement = document.getElementsByName("body")[0];
+
+            if (detailPanelElement.classList.contains('expanded')){
+                detailPanelElement.classList.remove("expanded")
+            }
+            else{
+                detailPanelElement.classList.add("expanded")
+                //bodyElement.style.overflowX = "hidden";
+            }
+
+        }
+
+        function onClose() {
+            var detailPanelElement = document.getElementById("detailsPanelWrapper")
+            detailPanelElement.classList.remove("expanded")
+        }
+
+        function unMount() {
+            
+            
+
+            ReactDOM.unmountComponentAtNode(document.getElementById("detailsPanel"))
+        }
+
+        window.onload = function name(params) {
+            
+            
+            var detailsPanel = SUREUI.components.DetailsPanel;
+            var data = [
+                {
+                    "label": "Equipment Name",
+                    "value": "SURE UI Equipement Name"
+                },
+                {
+                    "label": "Type",
+                    "value": "SURE UI Type"
+                },
+                {
+                    "label": "Sub Type",
+                    "value": "SURE UI Sub Type"
+                },
+                {
+                    "label": "Discovered Name",
+                    "value": "SURE UI Discovered Name"
+                },
+                {
+                    "label": "Peak Service Bandwidth(Gbs)",
+                    "type": "iframe",
+                    "URL": "http://localhost/angularChart",
+                    "data": { test: true }
+                }
+            ]
+
+            var props = {
+                data: data,
+                title: "ABC",
+                onClose: onClose
+            }
+
+            var detailsPanleComponent = React.createElement(detailsPanel, props);
+            ReactDOM.render(detailsPanleComponent, document.getElementById("detailsPanel"));
+        }
+    </script>
+</body>
+
+</html>

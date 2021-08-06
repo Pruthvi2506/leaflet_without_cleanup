@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: equipmentMap.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: equipmentMap.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  
+ * Component : equipmentMap.js
+ *
+ * @version 1.0
+ * @author Gowtham.S
+ * @ignore
+ */
+
+ /**
+ * @class EquipmentMap
+ * @memberof SUREUI.components
+ *
+ * @property {array}   [data=[ ]]       Predefined data for a component. It should be an array of object.
+ * @property {string}  data.id          Unique ID for a marker.
+ * @property {string}  data.latitude    Latitude of the location where marker need to display. 
+ * @property {string}  data.longitude   Longitude of the location where marker need to display. 
+ * @property {string}  data.name        Name of the location where marker need to display. 
+ * @property {object}  [data.state]     Status object. It can contain multiple state. Pass in each state as a property of an object. &lt;pre>&lt;code>{"AlarmState" : ["MAJOR", "MINOR", "WARNING", "CRITICAL"]}&lt;/code>&lt;/pre>
+ * @property {object}  [data.detail]    Reserved object to store additional information. * 
+ * @property {string}  tileServer    Tile Server url for map tiles.
+ * @property {object}  [dataSource]      Configuartion for SURE UI data model.
+ * @property {string}  [dataSource.method = GET] Http method for SURE REST API.
+ * @property {string}  dataSource.url  URL for SURE REST API.
+ * @property {object}  [dataSource.headers] Additional headers which usually includes metadata and authorization info.
+ * @property {object}  [markers]        Marker icon configuration
+ * @property {boolean} [markers.displayLabel = true ] Enable/Disable marker text.
+ * @property {object}  [markers.stateToDisplay] Status to display in a marker. It can contain multiple state. Pass in each state as a property of an object. &lt;pre>&lt;code>{"AlarmState" : ["MAJOR", "MINOR", "WARNING", "CRITICAL"]}&lt;/code>&lt;/pre>
+ * @property {object}  [style]         To override default styles. It should be an object. Pass in any styles you'd like and they will be applied inline on the input.
+ * @property {object}  statusPanelConfig Properties of {@link SUREUI.components.StatusPanel|StatusPanel} component
+ * 
+ *
+ * @example &lt;caption>Access component as a Library&lt;/caption>
+ *
+ * HTML
+ *  &lt;div id="equipmentMapView">&lt;/div>
+ *
+ * JS
+ *  
+ *  
+ *  var EuipmentMap = SUREUI.components.EuipmentMap;
+ *
+ *  let dataSource = {
+ *  method: "GET",
+ *  url: "http://135.250.139.104:8081/oss/sure/locations?limit=100&amp;expand=Equipment.State&amp;q=SELECT;[SureName,Longitude,Latitude,UUID,Equipment]"
+ *  headers : {
+ *      Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',
+ *      tenantId: 'GlobalTenant',
+ *      ugId: 'Admin_UserGroup',
+ *      appId: 'SURE_APP',
+ *      Accept: 'application/json',
+ *      TransformationEnabled: true,
+ *      'Content-Type': 'application/json',
+ *      'Response-Type': 'flat'
+ *      }
+ *  };
+ * 
+ *  var props = {
+ *      dataSource : dataSource,
+ *      tileServer : "http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png"
+ *  }
+ * 
+ *  var equipmentmapComponent = React.createElement(EuipmentMap, props);
+ *  ReactDOM.render(equipmentmapComponent, document.getElementById("equipmentMapView"));
+ * 
+ * 
+ *  @example &lt;caption>Access component through iframe&lt;/caption>
+ * 
+ *  HTML
+ *      &lt;iframe id="equipmentMap" src="http://135.250.139.99:8092/" >&lt;/iframe>
+ * 
+ *  JS
+ *      var iframe = document.getElementById('equipmentMap');
+ *      let dataSource = {
+ *          method: "GET",
+ *          url: "http://135.250.139.104:8081/oss/sure/locations?limit=100&amp;expand=Equipment.State&amp;q=SELECT;[SureName,Longitude,Latitude,UUID,Equipment]"
+ *          headers : {
+ *              Authorization: 'Basic YWRtaW46YWRtaW5AMTIz',
+ *              tenantId: 'GlobalTenant',
+ *              ugId: 'Admin_UserGroup',
+ *              appId: 'SURE_APP',
+ *              Accept: 'application/json',
+ *              TransformationEnabled: true,
+ *              'Content-Type': 'application/json',
+ *              'Response-Type': 'flat'
+ *          }
+ *      };
+ * 
+ *      var props = {
+ *          dataSource : dataSource,
+ *          tileServer : "http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png"
+ *        }
+ * 
+ *      var ifarmeObj = {
+ *              type: "ACCESS_SURE_UI_COMPONENT",
+ *               payload: {
+ *                   componentKey: "EquipmentMap",
+ *                   properties: props
+ *             }
+ *        }
+ * 
+ *        iframe.contentWindow.postMessage(ifarmeObj, 'http://135.250.139.99:8092/'); 
+ * 
+ */
+
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import EquipmentMapRoot from '../containers/equipmentMapContainer'
+import store from '../store/store';
+//Add Provider to the root
+class EquipmentMap extends Component{
+     render(){
+        return(
+            &lt;Provider store={store}>
+                &lt;EquipmentMapRoot {...this.props} />
+            &lt;/Provider>
+        )        
+    }
+}
+
+export default EquipmentMap</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="SUREUI.components.AddProfiles.html">AddProfiles</a></li><li><a href="SUREUI.components.AssociationView.html">AssociationView</a></li><li><a href="SUREUI.components.CreateUser.html">CreateUser</a></li><li><a href="SUREUI.components.DataGridList.html">DataGridList</a></li><li><a href="SUREUI.components.DetailsPanel.html">DetailsPanel</a></li><li><a href="SUREUI.components.EquipmentMap.html">EquipmentMap</a></li><li><a href="SUREUI.components.EquipmentView.html">EquipmentView</a></li><li><a href="SUREUI.components.GeoMap.html">GeoMap</a></li><li><a href="SUREUI.components.openPopup.html">openPopup</a></li><li><a href="SUREUI.components.Search.html">Search</a></li><li><a href="SUREUI.components.Settings.html">Settings</a></li><li><a href="SUREUI.components.StatusPanel.html">StatusPanel</a></li><li><a href="SUREUI.components.Tenant.html">Tenant</a></li><li><a href="SUREUI.components.TopologyMap.html">TopologyMap</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Apr 07 2021 18:52:28 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

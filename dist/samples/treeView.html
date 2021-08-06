@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>SURE UI Component</title>
+<link href="../styles/SUREUIComponents.css?5d260856a3a9cce34696" rel="stylesheet"><link href="../styles/SUREUIComponents.css?fdb0198f0f34eafd8b05" rel="stylesheet"></head>
+
+<body>
+    <div id="treeViewId"></div>
+    <script type="text/javascript">   
+       
+      
+        window.onload = function name(params) {
+                  
+            var TreeView= SUREUI.components.TreeView;
+            function unMount() {
+            var TreeView = SUREUI.components.TreeView;
+            ReactDOM.unmountComponentAtNode(document.getElementById("treeViewId"))
+        }
+
+        var locationTreeViewData =[
+    {
+      id: 'root-folder-a-and-a',
+      label: 'Folder A + A',
+      toolTipText: 'Folder A + A tooltip',
+      collapsed: false,
+      icon:'../../images/critical_32px_.svg',
+      children: [
+        {
+          id: 'folder-a-minus-a',
+          label: 'Folder A - A',
+          toolTipText: 'Folder A - A tooltip',
+          collapsed: false,
+          children: []
+        }
+      ]
+    },
+    {
+      id: 'long-folder-a',
+      label: 'Folder A',
+      toolTipText: 'Folder A tooltip',
+      collapsed: true,
+      children: [
+        {
+          id: 'long-folder-a1',
+          label: 'Folder A.1',
+          toolTipText: 'Folder A.1 tooltip',
+          collapsed: true,
+          children: [
+            {
+              id: 'folder-a11',
+              label: 'A.1.1',
+              toolTipText: 'A.1.1 tooltip',
+              collapsed: true,
+              children: [
+                {
+                  id: 'folder-a111',
+                  label: 'A.1.1.1',
+                  toolTipText: 'A.1.1.1 tooltip',
+                  collapsed: true,
+                },
+              ],
+            },
+            {
+              id: 'folder-a12', label: 'A.1.2', toolTipText: 'A.1.2 tooltip', collapsed: true
+            },
+            {
+              id: 'folder-a13', label: 'A.1.3', toolTipText: 'A.1.3 tooltip', collapsed: true
+            },
+          ],
+        },
+        {
+          id: 'folder-a2',
+          label: 'Folder A.2',
+          toolTipText: 'Folder A.2 tooltip',
+          collapsed: true,
+          children: [
+            {
+              id: 'folder-a21', label: 'A.2.1', toolTipText: 'A.2.1 tooltip', collapsed: true
+            },
+            {
+              id: 'folder-a22', label: 'A.2.2', toolTipText: 'A.2.2 tooltip', collapsed: true
+            },
+            {
+              id: 'folder-a23', label: 'A.2.3', toolTipText: 'A.2.3 tooltip', collapsed: true
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'folder-b',
+      label: 'Folder B',
+      toolTipText: 'Folder B tooltip',
+      collapsed: false,
+      children: [
+        {
+          id: 'folder-b1',
+          label: 'Folder B.1',
+          toolTipText: 'Folder B.1 tooltip',
+          collapsed: false,
+          children: [
+            {
+              id: 'folder-b11', label: 'B.1.1', toolTipText: 'B.1.1 tooltip', collapsed: true
+            },
+            {
+              id: 'folder-b12', label: 'B.1.2', toolTipText: 'B.1.2 tooltip', collapsed: true
+            },
+            {
+              id: 'folder-b13', label: 'B.1.3', toolTipText: 'B.1.3 tooltip', collapsed: true
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'folder-c',
+      label: 'Folder C',
+      toolTipText: 'Folder C tooltip',
+      collapsed: true,
+      children: [
+        {
+          id: 'folder-c1',
+          label: 'Folder C.1',
+          toolTipText: 'Folder C.1 tooltip',
+          collapsed: true,
+          children: []
+        },
+        {
+          id: 'folder-c2',
+          label: 'Folder C.2',
+          toolTipText: 'Folder C.2 tooltip',
+          collapsed: true,
+          children: [
+            {
+              id: 'folder-c21',
+              label: 'C.2.1',
+              toolTipText: 'C.2.1 tooltip',
+              collapsed: true,
+              children: [
+                {
+                  id: 'folder-c211',
+                  label: 'C.2.1.1',
+                  toolTipText: 'C.2.1.1 tooltip',
+                  collpased: false,
+                  children: [
+                    {
+                      id: 'folder-c2111',
+                      label: 'C.2.1.1.1',
+                      toolTipText: 'C.2.1.1.1 tooltip',
+                      collapsed: true,
+                      children: [
+                        {
+                          id: 'folder-c21111', label: 'C.2.1.1.1.1', toolTipText: 'C.2.1.1.1.1 tooltip', collpased: false
+                        },
+                        {
+                          id: 'folder-c21112', label: 'C.2.1.1.1.2', toolTipText: 'C.2.1.1.1.2 tooltip', collpased: false
+                        },
+                        {
+                          id: 'folder-c21113', label: 'C.2.1.1.1.3', toolTipText: 'C.2.1.1.1.3 tooltip', collpased: false
+                        },
+                        {
+                          label: 'C.2.1.1.1.4', toolTipText: 'C.2.1.1.1.4 tooltip', collpased: false
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  id: 'folder-c212', label: 'C.2.1.2', toolTipText: 'C.2.1.2 tooltip', collpased: false
+                },
+                {
+                  id: 'folder-c213', label: 'C.2.1.3', toolTipText: 'C.2.1.3 tooltip', collpased: false
+                },
+                {
+                  id: 'folder-c214', label: 'C.2.1.4', toolTipText: 'C.2.1.4 tooltip', collpased: false
+                },
+                {
+                  id: 'folder-c215', label: 'C.2.1.5', toolTipText: 'C.2.1.5 tooltip', collpased: false
+                },
+                {
+                  id: 'folder-c216', label: 'C.2.1.6', toolTipText: 'C.2.1.6 tooltip', collpased: false
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: 'folder-c3', label: 'Folder C.3', toolTipText: 'Folder C.3 tooltip', collapsed: true, children: []
+        },
+      ],
+    },
+    {
+      id: 'folder-some-really-long-text',
+      label: 'Some Really Long Name With Spaces And Extra Text To Make It Even Longer Than It Was',
+      toolTipText: 'Some Really Long Name With Spaces And Extra Text To Make It Even Longer Than It Was tooltip',
+      collapsed: false,
+      children: [
+        {
+          id: 'folder-special-chars',
+          label: 'Special Characters: ~!@#$%^&*()_-+={}|\\[];"\'<>,./?',
+          toolTipText: 'Special Characters: ~!@#$%^&*()_-+={}|\\[];"\'<>,./? tooltip',
+          collapsed: false
+        }
+      ]
+    },
+    {
+      id: 'duplicate1',
+      label: 'Bangladesh',
+      toolTipText: 'Duplicate 1',
+      collapsed: true,
+      children: []
+    },
+    {
+      id: 'duplicate2',
+      label: 'Duplicate',
+      toolTipText: 'Duplicate 2',
+      collapsed: true,
+      children: []
+    }
+
+  ];
+
+  function fetchLocEquip(data) {
+                
+            }
+        var treeViewData = {
+                 
+           topoUrl:'https://135.250.139.91:28443/oss/sure/topology?limit=999999&traverse=BFS',
+            url:'https://135.250.139.91:28443/oss/sure/locations?criteria=onlyRoot&expand=Equipment,Equipment.State',
+            payload: {"request":{"origin":{"@class":"Equipment","UUID":"d9ebbcaa-293a-4921-b4e7-6b21410c17b5"},"inclusion":{"gInclude":["Service","Path","Endpoint","FCP","Equipment","Location"]},"gDirection":"OUTGOING"},"response":{"responseType":"SubTree","columnFilter":[{"for":"Entity","filter":["SureName","UUID","SubType","Latitude","Longitude"]}]},"expand":["State","Equipment.Location"]},
+            editSearchPayload:false,
+            method: 'GET',
+            data:'',
+            imageIconurl:'',
+            unMount: unMount,
+            getMarkers:getMarkers,
+            style: {
+                        width: "240px",
+                        left: "10px",
+                        top: "10px"
+                    }
+                  };
+                  
+        treeViewData.requestHeaders = {
+
+            "Accept": "application/json",
+            "tenantId": "T0",
+            "ugId": "Admin_UserGroup",
+            "appId": "SURE_APP",
+            "Authorization": "Basic YWRtaW46YWRtaW5AMTIz",
+            "Content-Type": "application/json",
+
+
+        }
+      
+            var treeViewComponent = React.createElement(TreeView,treeViewData);
+            ReactDOM.render(treeViewComponent, document.getElementById("treeViewId"));
+
+        }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="../js/SUREUIComponents.js?5d260856a3a9cce34696"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react@16.1.1/umd/react.production.min.js"></script><script type="text/javascript" src="https://unpkg.com/react-dom@16.1.1/umd/react-dom.production.min.js"></script><script type="text/javascript" src="../js/SUREUIComponents.js?fdb0198f0f34eafd8b05"></script></body>
+
+</html>
